@@ -1,4 +1,5 @@
 var React = require('react');
+var RouteHandler = require('react-router').RouteHandler;
 
 var App = React.createClass({
 
@@ -10,6 +11,7 @@ var App = React.createClass({
     return (
       <div className='app'>
         I'm an app!
+        <RouteHandler />
       </div>
     );
   }, 
