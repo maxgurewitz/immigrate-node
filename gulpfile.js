@@ -1,25 +1,37 @@
 var gulp = require('gulp');
-var webpack = require('gulp-webpack');
+var webpack = require('webpack');
 var nodemon = require('gulp-nodemon');
+var gutil = require('gulp-util');
+var WebpackDevServer = require('webpack-dev-server');
 
 gulp.task('webpack', function (done) {
-  return gulp.src('src/entry.js')
-    .pipe(webpack({ 
+
+  var transpiler = webpack({ 
       module: {
         loaders: [
           { test: /\.jsx$/, loader: 'jsx-loader' }
         ],
       },
-      context: __dirname + '/src/client/',
-      entry: './index.jsx',
+      entry: {
+        home: __dirname + '/src/client/index.jsx'
+      },
       output: {
-        filename: './bundle.js'
+        path: __dirname + '/dist/js/',
+        filename: 'bundle.js'
       },
       resolveLoader: {
         root: __dirname + '/node_modules'
       }
-    }))
-    .pipe(gulp.dest('dist/js/'));
+    });
+    console
+
+    new WebpackDevServer(transpiler, {
+      publicPath: __dirname + '/dist/js/',
+    }).listen(8080, "localhost", function(err) {
+        if(err) { throw new gutil.PluginError("webpack-dev-server", err) };
+
+        gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
+    });
 });
 
 gulp.task('start', function () {
@@ -30,4 +42,4 @@ gulp.task('start', function () {
   });
 });
 
-gulp.task('default', ['webpack']);
+gulp.task('default', ['start', 'webpack']);
