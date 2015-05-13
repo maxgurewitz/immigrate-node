@@ -1,11 +1,11 @@
 var Reflux = require('reflux');
 
 var Actions = Reflux.createActions({
-  'gotoPage': {}
+  // 'transitionTo': {}
 });
 
-Actions.gotoPage(function () {
-
-});
+// Actions.transitionTo.listen(function (route, params, query) {
+//   Router.transitionTo.apply(Router, arguments);
+// });
 
 module.exports = Actions;

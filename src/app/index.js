@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(express.static('./dist', { index: false }));
 
-app.get('/', function (req, res) {
+app.get('*', function (req, res) {
   res.render('home');
 });
 

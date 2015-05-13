@@ -1,15 +1,14 @@
-var React = require('react');
+var Actions = require('../actions.jsx');
+var Navigation = require('react-router').Navigation;
 
 var Home = React.createClass({
-
-  getInitialState: function () {
-    return {};
-  },
+  mixins: [Navigation],  
 
   render: function () {
     return (
       <div className='Home'>
         I'm a home page
+        <button onClick={this.transitionTo.bind(this, 'about')} > About </button>
       </div>
     );
   }, 
