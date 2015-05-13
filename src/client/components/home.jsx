@@ -1,7 +1,9 @@
-var Actions = require('../actions.jsx');
+var React = require('react');
 var Navigation = require('react-router').Navigation;
+var Actions = require('../actions.jsx');
 
 var Home = React.createClass({
+
   mixins: [Navigation],  
 
   render: function () {
