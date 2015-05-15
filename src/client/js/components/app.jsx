@@ -4,16 +4,19 @@ var NavBar = require('./navbar.jsx');
 
 var App = React.createClass({
 
-  getInitialState: function () {
-    return {};
-  },
-
   render: function () {
     return (
       <div className='app'>
         <NavBar />
-        I'm an app!
-        <RouteHandler />
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='panel panel-default col-sm-8 col-sm-offset-2'>
+              <div className='panel-body'>
+                <RouteHandler />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }, 
