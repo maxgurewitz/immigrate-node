@@ -2,22 +2,22 @@ var gulp = require('gulp');
 var webpack = require('webpack');
 var nodemon = require('gulp-nodemon');
 var gutil = require('gulp-util');
-var WebpackDevServer = require('webpack-dev-server');
 var sass = require('gulp-sass');
-// var shell = require('gulp-shell');
+var shell = require('gulp-shell');
 var settings = require('./settings');
 
-// gulp.task('cleanJS', shell.task([
-//       'rm ' + __dirname + settings.dist.js + '*.js'
-// ], { ignoreErrors: true }));
+gulp.task('cleanJS', shell.task([
+      'rm ' + __dirname + settings.dist.js + '*.js'
+], { ignoreErrors: true }));
 
-// gulp.task('cleanCSS', shell.task([
-//       'rm ' + __dirname + settings.dist.css + '*.css'
-// ], { ignoreErrors: true }));
+gulp.task('cleanCSS', shell.task([
+      'rm ' + __dirname + settings.dist.css + '*.css'
+], { ignoreErrors: true }));
 
-gulp.task('webpack', function (done) {
+gulp.task('webpack', ['cleanJS'], function (done) {
 
   var transpiler = webpack({ 
+    watch: true,
     module: {
       loaders: [
       { test: /\.jsx$/, loader: 'jsx-loader' }
@@ -38,19 +38,14 @@ gulp.task('webpack', function (done) {
         React: 'react'
       })
     ]
-  });
+  }, function (err, stats) { 
+    if(err) { throw new gutil.PluginError("webpack", err) };
 
-  new WebpackDevServer(transpiler, {
-    publicPath: __dirname + settings.dist.js,
-  }).listen(8080, "localhost", function (err) {
-    if(err) { throw new gutil.PluginError("webpack-dev-server", err) };
-
-    gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
+    gutil.log("[webpack]");
   });
 });
 
-// gulp.task('sass', ['cleanCSS'], function () {
-gulp.task('sass', function () {
+gulp.task('sass', ['cleanCSS'], function () {
   gulp.src(__dirname + settings.src.css)
     .pipe(sass({ 
       errLogToConsole: true,
