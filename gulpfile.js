@@ -57,6 +57,10 @@ gulp.task('sass', ['cleanCSS'], function () {
   .pipe(gulp.dest(__dirname + settings.dist.css));
 });
 
+gulp.task('watch', function () {
+  gulp.watch(__dirname + settings.src.css, ['sass']);
+});
+
 gulp.task('start', function () {
   nodemon({
     script: 'scripts/server.js',
@@ -65,4 +69,4 @@ gulp.task('start', function () {
   });
 });
 
-gulp.task('default', ['start', 'webpack', 'sass']);
+gulp.task('default', ['start', 'webpack', 'sass', 'watch']);
