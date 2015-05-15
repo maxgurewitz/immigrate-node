@@ -21,6 +21,7 @@
     "gulp": "^3.8.11",
     "gulp-nodemon": "^2.0.2",
     "gulp-sass": "^2.0.1",
+    "gulp-shell": "^0.4.1",
     "gulp-util": "^3.0.4",
     "jquery": "^2.1.4",
     "jsx-loader": "^0.13.2",

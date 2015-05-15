@@ -4,6 +4,16 @@ var nodemon = require('gulp-nodemon');
 var gutil = require('gulp-util');
 var WebpackDevServer = require('webpack-dev-server');
 var sass = require('gulp-sass');
+// var shell = require('gulp-shell');
+var settings = require('./settings');
+
+// gulp.task('cleanJS', shell.task([
+//       'rm ' + __dirname + settings.dist.js + '*.js'
+// ], { ignoreErrors: true }));
+
+// gulp.task('cleanCSS', shell.task([
+//       'rm ' + __dirname + settings.dist.css + '*.css'
+// ], { ignoreErrors: true }));
 
 gulp.task('webpack', function (done) {
 
@@ -14,10 +24,10 @@ gulp.task('webpack', function (done) {
       ],
     },
     entry: {
-      home: __dirname + '/src/client/js/index.jsx'
+      home: __dirname + settings.src.js
     },
     output: {
-      path: __dirname + '/dist/js/',
+      path: __dirname + settings.dist.js,
       filename: 'bundle.js'
     },
     resolveLoader: {
@@ -31,7 +41,7 @@ gulp.task('webpack', function (done) {
   });
 
   new WebpackDevServer(transpiler, {
-    publicPath: __dirname + '/dist/js/',
+    publicPath: __dirname + settings.dist.js,
   }).listen(8080, "localhost", function (err) {
     if(err) { throw new gutil.PluginError("webpack-dev-server", err) };
 
@@ -39,8 +49,9 @@ gulp.task('webpack', function (done) {
   });
 });
 
+// gulp.task('sass', ['cleanCSS'], function () {
 gulp.task('sass', function () {
-  gulp.src(__dirname + '/src/client/css/**/*.scss')
+  gulp.src(__dirname + settings.src.css)
     .pipe(sass({ 
       errLogToConsole: true,
       style: 'compressed',
@@ -48,7 +59,7 @@ gulp.task('sass', function () {
         __dirname + '/node_modules/bootstrap-sass/assets/stylesheets/'
       ]
     }))
-  .pipe(gulp.dest(__dirname + '/dist/css/'));
+  .pipe(gulp.dest(__dirname + settings.dist.css));
 });
 
 gulp.task('start', function () {
