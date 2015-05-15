@@ -10,7 +10,7 @@ var App = React.createClass({
         <NavBar />
         <div className='container-fluid'>
           <div className='row'>
-            <div className='panel panel-default col-sm-8 col-sm-offset-2'>
+            <div className='panel panel-default col-md-8 col-md-offset-2'>
               <div className='panel-body'>
                 <RouteHandler />
               </div>

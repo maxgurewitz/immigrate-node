@@ -6,7 +6,7 @@ var Home = React.createClass({
   render: function () {
     return (
       <div className='Home'>
-        I'm a home page
+        I'm a home page.
       </div>
     );
   }, 

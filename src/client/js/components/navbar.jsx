@@ -1,5 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
+var settings = require('../settings');
 
 var NavBar = React.createClass({
 
@@ -24,7 +25,7 @@ var NavBar = React.createClass({
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">Immigrate</a>
+            <a className="navbar-brand" href="#">{settings.companyName}</a>
           </div>
           
           <div className="collapse navbar-collapse" id="js-navbar-collapse">
