@@ -11,7 +11,7 @@ var App = React.createClass({
   render: function () {
     return (
       <div className='app'>
-        <Navbar />
+        <NavBar />
         I'm an app!
         <RouteHandler />
       </div>

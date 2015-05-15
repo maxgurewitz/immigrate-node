@@ -7,23 +7,23 @@ var NavBar = React.createClass({
 
   render: function () {
     return (
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
           
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Brand</a>
+            <a className="navbar-brand" href="#">Immigrate</a>
           </div>
           
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li onClick={this.transitionTo.bind(this, 'home')}>Home</li>
-              <li onClick={this.transitionTo.bind(this, 'about')}>About</li>
+          <div className="collapse navbar-collapse" id="js-navbar-collapse">
+            <ul className="nav navbar-nav">
+              <li onClick={this.transitionTo.bind(this, 'home')}><a>Home</a></li>
+              <li onClick={this.transitionTo.bind(this, 'about')}><a>About</a></li>
             </ul>
           </div>
         </div>
