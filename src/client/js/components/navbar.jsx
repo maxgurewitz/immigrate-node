@@ -1,9 +1,16 @@
 var React = require('react');
-var Navigation = require('react-router').Navigation;
+var Router = require('react-router');
 
 var NavBar = React.createClass({
 
-  mixins: [Navigation],  
+  mixins: [Router.Navigation, Router.State],  
+
+  generateLink: function (title, pathname) {
+    var className = this.getPathname() === pathname ? 'active' : ''; 
+    return (
+      <li className={className} onClick={this.transitionTo.bind(this, pathname)}><a>{title}</a></li>
+    );
+  },
 
   render: function () {
     return (
@@ -22,8 +29,8 @@ var NavBar = React.createClass({
           
           <div className="collapse navbar-collapse" id="js-navbar-collapse">
             <ul className="nav navbar-nav">
-              <li onClick={this.transitionTo.bind(this, 'home')}><a>Home</a></li>
-              <li onClick={this.transitionTo.bind(this, 'about')}><a>About</a></li>
+              {this.generateLink('Home', '/')}
+              {this.generateLink('About', '/about')}
             </ul>
           </div>
         </div>
