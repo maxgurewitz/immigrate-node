@@ -1,8 +1,9 @@
 var React = require('react'); 
-var Store = require('../store');
 var _ = require('lodash');
+var Store = require('../store');
+var Steps = require('./immigration_steps');
 
-var immitrationSteps = ['form'];
+var stepNames = ['form'];
 
 var Immigration = React.createClass({
 
@@ -11,9 +12,12 @@ var Immigration = React.createClass({
   },
 
   render: function () {
+    var Step = Steps[stepNames[this.state.immigrationStep]];
+
     return (
       <div className='immigration'>
         Immigration.
+        <Step />
       </div>
     );
   }, 

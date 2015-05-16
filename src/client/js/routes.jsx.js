@@ -3,6 +3,7 @@ var App = require('./components/app');
 var Home = require('./components/home');
 var About = require('./components/about');
 var Immigration = require('./components/immigration');
+// console.log('loc1', Immigration, 'loc2', About, 'loc3', Home);
 
 module.exports = (
   <Route name="base" handler={App}>
