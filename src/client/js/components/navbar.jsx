@@ -1,6 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
-var settings = require('../settings');
+var _ = require('lodash');
+var settings = require('../settings.jsx');
+var helpers = require('../helpers.jsx');
 
 var NavBar = React.createClass({
 
@@ -31,6 +33,7 @@ var NavBar = React.createClass({
           <div className="collapse navbar-collapse" id="js-navbar-collapse">
             <ul className="nav navbar-nav">
               {this.generateLink('Home', '/')}
+              {this.generateLink('Immigration', '/immigration')}
               {this.generateLink('About', '/about')}
             </ul>
           </div>

@@ -1,15 +1,24 @@
 var Reflux = require('reflux');
-var Actions = require('./actions');
+var _ = require('lodash');
+var Actions = require('./actions.jsx');
 
 module.exports = Reflux.createStore({
 
+  listenables: Actions,
+
   init: function () {
-    // this.listenTo(Actions.gotoPage, this.gotoPage);
-    // this.page = 'home'; 
+    this.state = this.getInitialState();
   },
 
-  // gotoPage: function (page) {
-  //   this.page = page;
-  //   this.trigger('gotoPage', this.page);
-  // }
+  setState: function (updates) {
+    _.extend(this.state, updates);
+    this.trigger('update', updates);
+  },
+
+  getInitialState: function () {
+    return {
+      immigrationStep: 0,
+    }
+  }
 });
+
