@@ -1,8 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
 var _ = require('lodash');
-var settings = require('../settings.jsx');
-var helpers = require('../helpers.jsx');
+var settings = require('../settings');
+var helpers = require('../helpers');
 
 var NavBar = React.createClass({
 

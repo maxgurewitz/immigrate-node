@@ -1,6 +1,6 @@
 var Reflux = require('reflux');
 var _ = require('lodash');
-var Actions = require('./actions.jsx');
+var Actions = require('./actions');
 
 module.exports = Reflux.createStore({
 

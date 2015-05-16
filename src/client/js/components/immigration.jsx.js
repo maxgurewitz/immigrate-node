@@ -1,5 +1,5 @@
 var React = require('react'); 
-var Store = require('../store.jsx');
+var Store = require('../store');
 var _ = require('lodash');
 
 var immitrationSteps = ['form'];

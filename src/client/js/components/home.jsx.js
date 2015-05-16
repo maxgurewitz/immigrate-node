@@ -1,5 +1,5 @@
 var React = require('react');
-var Actions = require('../actions.jsx');
+var Actions = require('../actions');
 
 var Home = React.createClass({
 

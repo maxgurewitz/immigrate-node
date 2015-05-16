@@ -25,7 +25,6 @@
     "gulp-util": "^3.0.4",
     "jquery": "^2.1.4",
     "jsx-loader": "^0.13.2",
-    "merge": "^1.2.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
     "reflux": "^0.2.7",

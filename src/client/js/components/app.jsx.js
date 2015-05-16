@@ -1,6 +1,6 @@
 var React = require('react');
 var RouteHandler = require('react-router').RouteHandler;
-var NavBar = require('./navbar.jsx');
+var NavBar = require('./navbar');
 
 var App = React.createClass({
 

@@ -20,7 +20,7 @@ gulp.task('webpack', ['cleanJS'], function (done) {
     watch: true,
     module: {
       loaders: [
-      { test: /\.jsx$/, loader: 'jsx-loader' }
+        { test: /\.jsx\.js$/, loader: 'jsx-loader' }
       ],
     },
     entry: {
@@ -32,6 +32,9 @@ gulp.task('webpack', ['cleanJS'], function (done) {
     },
     resolveLoader: {
       root: __dirname + '/node_modules'
+    },
+    resolve: {
+      extensions: ['', '.jsx.js', '.js']
     },
     plugins: [
       new webpack.ProvidePlugin({

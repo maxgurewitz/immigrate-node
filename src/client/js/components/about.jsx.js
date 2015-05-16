@@ -1,5 +1,5 @@
 var React = require('react'); 
-var settings = require('../settings.jsx');
+var settings = require('../settings');
 
 var About = React.createClass({
 
