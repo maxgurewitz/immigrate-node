@@ -110,9 +110,7 @@
 	    return (
 	      React.createElement("div", {className: "app"}, 
 	        React.createElement(NavBar, null), 
-	        React.createElement(PageContainer, null, 
-	          React.createElement(RouteHandler, null)
-	        )
+	        React.createElement(RouteHandler, null)
 	      )
 	    );
 	  }, 
@@ -127,13 +125,16 @@
 
 	var React = __webpack_require__(2);
 	var Actions = __webpack_require__(11);
+	var PageContainer = __webpack_require__(8);
 
 	var Home = React.createClass({displayName: "Home",
 
 	  render: function () {
 	    return (
 	      React.createElement("div", {className: "Home"}, 
-	        "I'm a home page."
+	        React.createElement(PageContainer, null, 
+	          "I'm a home page."
+	        )
 	      )
 	    );
 	  }, 
@@ -148,18 +149,21 @@
 
 	var React = __webpack_require__(2); 
 	var settings = __webpack_require__(12);
+	var PageContainer = __webpack_require__(8);
 
 	var About = React.createClass({displayName: "About",
 
 	  render: function () {
 	    return (
 	      React.createElement("div", {className: "About"}, 
-	        "Here at ", settings.companyName, " we're all about helping you build a better life.", 
+	        React.createElement(PageContainer, null, 
+	          "Here at ", settings.companyName, " we're all about helping you build a better life.", 
 
-	        React.createElement("br", null), 
-	        React.createElement("br", null), 
+	          React.createElement("br", null), 
+	          React.createElement("br", null), 
 
-	        "If you have had trouble with expensive immigration lawyers and confusing governmental bureaucracies give us a try.  We will make naturalization easy!"
+	          "If you have had trouble with expensive immigration lawyers and confusing governmental bureaucracies give us a try.  We will make naturalization easy!"
+	        )
 	      )
 	    );
 	  }, 
@@ -176,6 +180,7 @@
 	var _ = __webpack_require__(36);
 	var Store = __webpack_require__(13);
 	var Steps = __webpack_require__(15);
+	var PageContainer = __webpack_require__(8);
 
 	var stepNames = ['form'];
 
@@ -190,8 +195,10 @@
 
 	    return (
 	      React.createElement("div", {className: "immigration"}, 
-	        "Immigration.", 
-	        React.createElement(Step, null)
+	        React.createElement(PageContainer, null, 
+	          "Immigration.", 
+	          React.createElement(Step, null)
+	        )
 	      )
 	    );
 	  }, 
@@ -25903,7 +25910,6 @@
 	var Home = __webpack_require__(4);
 	var About = __webpack_require__(5);
 	var Immigration = __webpack_require__(6);
-	// console.log('loc1', Immigration, 'loc2', About, 'loc3', Home);
 
 	module.exports = (
 	  React.createElement(Route, {name: "base", handler: App}, 

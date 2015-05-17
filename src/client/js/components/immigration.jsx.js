@@ -2,6 +2,7 @@ var React = require('react');
 var _ = require('lodash');
 var Store = require('../store');
 var Steps = require('./immigration_steps');
+var PageContainer = require('./page_container');
 
 var stepNames = ['form'];
 
@@ -16,8 +17,10 @@ var Immigration = React.createClass({
 
     return (
       <div className='immigration'>
-        Immigration.
-        <Step />
+        <PageContainer>
+          Immigration.
+          <Step />
+        </PageContainer>
       </div>
     );
   }, 

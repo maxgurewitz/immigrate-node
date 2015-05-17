@@ -9,9 +9,7 @@ var App = React.createClass({
     return (
       <div className='app'>
         <NavBar />
-        <PageContainer>
-          <RouteHandler />
-        </PageContainer>
+        <RouteHandler />
       </div>
     );
   }, 
