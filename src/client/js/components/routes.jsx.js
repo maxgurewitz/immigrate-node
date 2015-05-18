@@ -1,8 +1,8 @@
 var Route = require('react-router').Route;
-var App = require('./components/app');
-var Home = require('./components/home');
-var About = require('./components/about');
-var Immigration = require('./components/immigration');
+var App = require('./app');
+var Home = require('./home');
+var About = require('./about');
+var Immigration = require('./immigration');
 
 module.exports = (
   <Route name="base" handler={App}>
