@@ -17,11 +17,6 @@ var Immigration = React.createClass({
 
     return (
       <div className='immigration'>
-
-        <button type="button" className="btn btn-default btn-lg">
-          <span className="glyphicon glyphicon-star" aria-hidden="true"></span> Star
-        </button>
-
         <PageContainer>
           Immigration.
           <Step />
