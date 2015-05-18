@@ -15,6 +15,7 @@ gulp.task('cleanCSS', shell.task([
 ], { ignoreErrors: true }));
 
 gulp.task('build', shell.task([
+  'npm i',
   'cp ' + __dirname + '/node_modules/bootstrap/fonts/* ' +
     __dirname + settings.dist.fonts
 ], { ignoreErrors: true }));
