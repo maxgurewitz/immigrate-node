@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var webpack = require('webpack');
 var nodemon = require('gulp-nodemon');
 var gutil = require('gulp-util');
-var sass = require('gulp-sass');
+var less = require('gulp-less');
 var shell = require('gulp-shell');
 var settings = require('./settings');
 
@@ -48,13 +48,26 @@ gulp.task('webpack', ['cleanJS'], function (done) {
   });
 });
 
-gulp.task('sass', ['cleanCSS'], function () {
+// gulp.task('sass', ['cleanCSS'], function () {
+//   gulp.src(__dirname + settings.src.css)
+//     .pipe(sass({ 
+//       errLogToConsole: true,
+//       style: 'compressed',
+//       includePaths: [
+//         __dirname + '/node_modules/bootstrap-sass/assets/stylesheets/',          
+//         __dirname + '/node_modules/bootstrap-sass/assets/fonts/'
+//       ]
+//     }))
+//   .pipe(gulp.dest(__dirname + settings.dist.css));
+// });
+
+gulp.task('less', ['cleanCSS'], function () {
   gulp.src(__dirname + settings.src.css)
-    .pipe(sass({ 
-      errLogToConsole: true,
-      style: 'compressed',
-      includePaths: [
-        __dirname + '/node_modules/bootstrap-sass/assets/stylesheets/'
+    .pipe(less({ 
+      compress: true,
+      paths: [
+        __dirname + '/node_modules/bootstrap/less/',          
+        __dirname + '/node_modules/bootstrap/fonts/'
       ]
     }))
   .pipe(gulp.dest(__dirname + settings.dist.css));
@@ -72,4 +85,4 @@ gulp.task('start', function () {
   });
 });
 
-gulp.task('default', ['start', 'webpack', 'sass', 'watch']);
+gulp.task('default', ['start', 'webpack', 'less', 'watch']);

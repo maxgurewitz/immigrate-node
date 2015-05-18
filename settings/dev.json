@@ -1,6 +1,6 @@
 {
   "src": {
-    "css": "/src/client/css/*.scss",
+    "css": "/src/client/css/*.less",
     "js": "/src/client/js/index.jsx.js"
   },
   "dist": {
