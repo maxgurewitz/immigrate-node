@@ -7,11 +7,16 @@ var shell = require('gulp-shell');
 var settings = require('./settings');
 
 gulp.task('cleanJS', shell.task([
-      'rm ' + __dirname + settings.dist.js + '*.js'
+  'rm ' + __dirname + settings.dist.js + '*.js'
 ], { ignoreErrors: true }));
 
 gulp.task('cleanCSS', shell.task([
-      'rm ' + __dirname + settings.dist.css + '*.css'
+  'rm ' + __dirname + settings.dist.css + '*.css'
+], { ignoreErrors: true }));
+
+gulp.task('build', shell.task([
+  'cp ' + __dirname + '/node_modules/bootstrap/fonts/* ' +
+    __dirname + settings.dist.fonts
 ], { ignoreErrors: true }));
 
 gulp.task('webpack', ['cleanJS'], function (done) {
@@ -48,26 +53,12 @@ gulp.task('webpack', ['cleanJS'], function (done) {
   });
 });
 
-// gulp.task('sass', ['cleanCSS'], function () {
-//   gulp.src(__dirname + settings.src.css)
-//     .pipe(sass({ 
-//       errLogToConsole: true,
-//       style: 'compressed',
-//       includePaths: [
-//         __dirname + '/node_modules/bootstrap-sass/assets/stylesheets/',          
-//         __dirname + '/node_modules/bootstrap-sass/assets/fonts/'
-//       ]
-//     }))
-//   .pipe(gulp.dest(__dirname + settings.dist.css));
-// });
-
 gulp.task('less', ['cleanCSS'], function () {
   gulp.src(__dirname + settings.src.css)
     .pipe(less({ 
       compress: true,
       paths: [
         __dirname + '/node_modules/bootstrap/less/',          
-        __dirname + '/node_modules/bootstrap/fonts/'
       ]
     }))
   .pipe(gulp.dest(__dirname + settings.dist.css));
