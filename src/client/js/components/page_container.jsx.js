@@ -4,7 +4,7 @@ var PageContainer = React.createClass({
 
   render: function () {
     return (
-      <div className='page-container container-fluid'>
+      <div className='page-container'>
         <div className='row'>
           <div className='panel panel-default col-md-8 col-md-offset-2'>
             <div className='panel-body'>
