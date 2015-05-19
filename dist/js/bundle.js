@@ -216,6 +216,7 @@
 	var _ = __webpack_require__(35);
 	var Store = __webpack_require__(33);
 	var Steps = __webpack_require__(34);
+	var ImmigrationNav = __webpack_require__(233);
 	var PageContainer = __webpack_require__(30);
 
 	var stepNames = ['form'];
@@ -231,17 +232,7 @@
 
 	    return (
 	      React.createElement("div", {className: "immigration container-fluid"}, 
-	        React.createElement("div", {className: "row"}, 
-	          React.createElement("div", {className: "row col-md-8 col-md-offset-2 immigration-nav"}, 
-	            React.createElement("button", {type: "button", className: "btn btn-default btn-lg pull-left"}, 
-	              React.createElement("span", {className: "glyphicon glyphicon-menu-left", "aria-hidden": "true"})
-	            ), 
-	            React.createElement("button", {type: "button", className: "btn btn-default btn-lg pull-right"}, 
-	              React.createElement("span", {className: "glyphicon glyphicon-menu-right", "aria-hidden": "true"})
-	            )
-	          )
-	        ), 
-
+	        React.createElement(ImmigrationNav, null), 
 	        React.createElement(PageContainer, null, 
 	          "Immigration.", 
 	          React.createElement(Step, null)
@@ -37595,6 +37586,33 @@
 	  delete immediateIds[id];
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(232).setImmediate, __webpack_require__(232).clearImmediate))
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+
+	var ImmigrationNav = React.createClass({displayName: "ImmigrationNav",
+
+	  render: function () {
+	    return (
+	      React.createElement("div", {className: "row"}, 
+	        React.createElement("div", {className: "row col-md-8 col-md-offset-2 immigration-nav"}, 
+	          React.createElement("button", {type: "button", className: "btn btn-default btn-lg pull-left"}, 
+	            React.createElement("span", {className: "glyphicon glyphicon-menu-left", "aria-hidden": "true"})
+	          ), 
+	          React.createElement("button", {type: "button", className: "btn btn-default btn-lg pull-right"}, 
+	            React.createElement("span", {className: "glyphicon glyphicon-menu-right", "aria-hidden": "true"})
+	          )
+	        )
+	      )
+	    );
+	  }, 
+	});
+
+	module.exports = ImmigrationNav;
+
 
 /***/ }
 /******/ ]);
