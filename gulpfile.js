@@ -66,7 +66,7 @@ gulp.task('less', ['cleanCSS'], function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(__dirname + settings.src.css, ['sass']);
+  gulp.watch(__dirname + settings.src.css, ['less']);
 });
 
 gulp.task('start', function () {
