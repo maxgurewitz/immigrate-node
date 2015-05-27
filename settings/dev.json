@@ -2,7 +2,7 @@
   "src": {
     "css": "/src/client/css/*.less",
     "js": "/src/client/js/index.jsx.js",
-    "elm": "/src/client/elm/*/**.elm"
+    "elm": "/src/client/elm/*.elm"
   },
   "dist": {
     "css": "/dist/css/",

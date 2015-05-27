@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var webpack = require('webpack');
 var nodemon = require('gulp-nodemon');
 var gutil = require('gulp-util');
 var less = require('gulp-less');
@@ -21,40 +20,6 @@ gulp.task('build', shell.task([
     __dirname + settings.dist.fonts
 ], { ignoreErrors: true }));
 
-gulp.task('webpack', ['cleanJS'], function (done) {
-
-  var transpiler = webpack({ 
-    watch: true,
-    module: {
-      loaders: [
-        { test: /\.jsx\.js$/, loader: 'jsx-loader' }
-      ],
-    },
-    entry: {
-      home: __dirname + settings.src.js
-    },
-    output: {
-      path: __dirname + settings.dist.js,
-      filename: 'bundle.js'
-    },
-    resolveLoader: {
-      root: __dirname + '/node_modules'
-    },
-    resolve: {
-      extensions: ['', '.jsx.js', '.js']
-    },
-    plugins: [
-      new webpack.ProvidePlugin({
-        React: 'react'
-      })
-    ]
-  }, function (err, stats) { 
-    if(err) { throw new gutil.PluginError("webpack", err) };
-
-    gutil.log("[webpack]");
-  });
-});
-
 gulp.task('less', ['cleanCSS'], function () {
   gulp.src(__dirname + settings.src.css)
     .pipe(less({ 
@@ -66,7 +31,7 @@ gulp.task('less', ['cleanCSS'], function () {
   .pipe(gulp.dest(__dirname + settings.dist.css));
 });
 
-gulp.task('elm-init', elm.init);
+gulp.task('elm-init', ['cleanJS'], elm.init);
 
 gulp.task('elm', function () {
   return gulp.src(__dirname + settings.src.elm)
@@ -87,4 +52,4 @@ gulp.task('start', function () {
   });
 });
 
-gulp.task('default', ['start', 'webpack', 'less', 'elm-init', 'elm', 'watch']);
+gulp.task('default', ['start', 'less', 'elm-init', 'elm', 'watch']);

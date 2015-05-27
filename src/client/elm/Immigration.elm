@@ -1,3 +1,5 @@
+module Immigration where
+
 import Graphics.Element exposing (..)
 
 main : Element

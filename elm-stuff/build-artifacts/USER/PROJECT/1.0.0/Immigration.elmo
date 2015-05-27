@@ -1,0 +1,17 @@
+Elm.Immigration = Elm.Immigration || {};
+Elm.Immigration.make = function (_elm) {
+   "use strict";
+   _elm.Immigration = _elm.Immigration || {};
+   if (_elm.Immigration.values)
+   return _elm.Immigration.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Immigration",
+   $Graphics$Element = Elm.Graphics.Element.make(_elm);
+   var main = $Graphics$Element.show("Hello, World!");
+   _elm.Immigration.values = {_op: _op
+                             ,main: main};
+   return _elm.Immigration.values;
+};
