@@ -7,17 +7,15 @@ module.exports = Reflux.createStore({
   listenables: Actions,
 
   init: function () {
-    this.state = this.getInitialState();
+    console.log('loc1', this.setState, 'loc2', Actions);
   },
 
-  setState: function (updates) {
-    _.extend(this.state, updates);
-    this.trigger('update', updates);
-  },
+  onNextImmigrationStep: function () {},
+  onPreviousImmigrationStep: function () {},
 
   getInitialState: function () {
     return {
-      immigrationStep: 0,
+      'immigrationStep': 0,
     }
   }
 });
