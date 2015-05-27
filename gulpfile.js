@@ -14,11 +14,13 @@ gulp.task('cleanCSS', shell.task([
   'rm ' + __dirname + settings.dist.css + '*.css'
 ], { ignoreErrors: true }));
 
-gulp.task('build', shell.task([
-  'npm i',
+gulp.task('build', ['install', 'elm-init', 'fonts']);
+gulp.task('install', shell.task(['npm i']));
+gulp.task('fonts', shell.task([
   'cp ' + __dirname + '/node_modules/bootstrap/fonts/* ' +
-    __dirname + settings.dist.fonts
-], { ignoreErrors: true }));
+    __dirname + settings.dist.fonts,
+]));
+gulp.task('elm-init', elm.init);
 
 gulp.task('less', ['cleanCSS'], function () {
   gulp.src(__dirname + settings.src.css)
@@ -31,9 +33,7 @@ gulp.task('less', ['cleanCSS'], function () {
   .pipe(gulp.dest(__dirname + settings.dist.css));
 });
 
-gulp.task('elm-init', ['cleanJS'], elm.init);
-
-gulp.task('elm', function () {
+gulp.task('elm', ['cleanJS'], function () {
   return gulp.src(__dirname + settings.src.elm)
     .pipe(elm())
     .pipe(gulp.dest(__dirname + settings.dist.js));
@@ -52,4 +52,4 @@ gulp.task('start', function () {
   });
 });
 
-gulp.task('default', ['start', 'less', 'elm-init', 'elm', 'watch']);
+gulp.task('default', ['start', 'less', 'elm', 'watch']);
