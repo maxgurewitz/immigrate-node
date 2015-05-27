@@ -15,11 +15,14 @@ gulp.task('cleanCSS', shell.task([
 ], { ignoreErrors: true }));
 
 gulp.task('build', ['install', 'elm-init', 'fonts']);
+
 gulp.task('install', shell.task(['npm i']));
+
 gulp.task('fonts', shell.task([
   'cp ' + __dirname + '/node_modules/bootstrap/fonts/* ' +
     __dirname + settings.dist.fonts,
-]));
+], { ignoreErrors: true }));
+
 gulp.task('elm-init', elm.init);
 
 gulp.task('less', ['cleanCSS'], function () {
