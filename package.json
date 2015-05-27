@@ -17,6 +17,8 @@
     "url": "https://github.com/maxgurewitz/immigrate-node/issues"
   },
   "devDependencies": {
+    "elm": "^1.4.1",
+    "gulp-elm": "^0.2.0",
     "gulp-less": "^3.0.3",
     "gulp-nodemon": "^2.0.2",
     "gulp-shell": "^0.4.1",

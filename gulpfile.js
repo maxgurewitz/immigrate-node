@@ -4,6 +4,7 @@ var nodemon = require('gulp-nodemon');
 var gutil = require('gulp-util');
 var less = require('gulp-less');
 var shell = require('gulp-shell');
+var elm = require('gulp-elm');
 var settings = require('./settings');
 
 gulp.task('cleanJS', shell.task([
@@ -65,8 +66,17 @@ gulp.task('less', ['cleanCSS'], function () {
   .pipe(gulp.dest(__dirname + settings.dist.css));
 });
 
+gulp.task('elm-init', elm.init);
+
+gulp.task('elm', function () {
+  return gulp.src(__dirname + settings.src.elm)
+    .pipe(elm())
+    .pipe(gulp.dest(__dirname + settings.dist.js));
+});
+
 gulp.task('watch', function () {
   gulp.watch(__dirname + settings.src.css, ['less']);
+  gulp.watch(__dirname + settings.src.elm, ['elm']);
 });
 
 gulp.task('start', function () {
@@ -77,4 +87,4 @@ gulp.task('start', function () {
   });
 });
 
-gulp.task('default', ['start', 'webpack', 'less', 'watch']);
+gulp.task('default', ['start', 'webpack', 'less', 'elm-init', 'elm', 'watch']);
