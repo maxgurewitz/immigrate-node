@@ -20,7 +20,7 @@ type alias Model =
 
 initialModel : Model
 initialModel =
-  { field = "Foo"
+  { field = "foo"
   }
 
 actions : Signal.Mailbox Action
@@ -37,7 +37,7 @@ view address model =
       [ text model.field
       , text "bar"
       , button 
-        [ onClick address (Update)]
+        [ onClick address Update]
         [ text "button" ]
       ]
 
@@ -45,4 +45,9 @@ update action model =
     case action of 
       NoOp -> model
       Update ->
-        { model | field <- "baz" }
+        let value = 
+            case model.field of
+              "foo" -> "baz"
+              "baz" -> "foo"
+        in
+          { model | field <- value }
