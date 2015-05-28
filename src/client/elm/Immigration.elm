@@ -1,7 +1,44 @@
 module Immigration where
 
-import Graphics.Element exposing (..)
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Signal exposing (Signal, Address)
+import String
 
-main : Element
+main : Signal Html
 main =
-  show "Hello, World!"
+  Signal.map (view actions.address) model
+
+model : Signal Model
+model =
+  Signal.foldp update initialModel actions.signal
+
+type alias Model =
+  { field : String
+  }
+
+initialModel : Model
+initialModel =
+  { field = "Foo"
+  }
+
+actions : Signal.Mailbox Action
+actions =
+  Signal.mailbox NoOp
+
+type Action
+    = NoOp
+
+view : Address Action -> Model -> Html
+view address model =
+    div
+      [
+      ]
+      [ text model.field
+      , text "bar"
+      ]
+
+update action model =
+    case action of 
+      NoOp -> model
