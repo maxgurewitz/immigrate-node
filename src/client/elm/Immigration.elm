@@ -8,7 +8,7 @@ import String
 
 main : Signal Html
 main =
-  Signal.map (view actions.address) model
+  Signal.map2 (view actions.address) model
 
 model : Signal Model
 model =
@@ -28,26 +28,26 @@ actions =
   Signal.mailbox NoOp
 
 type Action
-    = NoOp
-    | Update
+  = NoOp
+  | Update
 
 view : Address Action -> Model -> Html
 view address model =
-    div []
-      [ text model.field
-      , text "bar"
-      , button 
-        [ onClick address Update]
-        [ text "button" ]
-      ]
+  div []
+    [ text model.field
+    , text "bar"
+    , button 
+      [ onClick address Update ]
+      [ text "button" ]
+    ]
 
 update action model =
-    case action of 
-      NoOp -> model
-      Update ->
-        let value = 
-            case model.field of
-              "foo" -> "baz"
-              "baz" -> "foo"
-        in
-          { model | field <- value }
+  case action of 
+    NoOp -> model
+    Update ->
+      let value = 
+        case model.field of
+          "foo" -> "baz"
+          "baz" -> "foo"
+      in
+         { model | field <- value }
