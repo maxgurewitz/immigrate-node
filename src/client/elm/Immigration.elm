@@ -29,16 +29,20 @@ actions =
 
 type Action
     = NoOp
+    | Update
 
 view : Address Action -> Model -> Html
 view address model =
-    div
-      [
-      ]
+    div []
       [ text model.field
       , text "bar"
+      , button 
+        [ onClick address (Update)]
+        [ text "button" ]
       ]
 
 update action model =
     case action of 
       NoOp -> model
+      Update ->
+        { model | field <- "baz" }
