@@ -6,6 +6,10 @@ var shell = require('gulp-shell');
 var elm = require('gulp-elm');
 var settings = require('./settings');
 
+function logError (err) {
+  gutil.log(err.message);
+}
+
 gulp.task('cleanJS', shell.task([
   'rm ' + __dirname + settings.dist.js + '*.js'
 ], { ignoreErrors: true }));
@@ -37,9 +41,9 @@ gulp.task('less', ['cleanCSS'], function () {
 });
 
 gulp.task('elm', ['cleanJS'], function () {
-  return gulp.src(__dirname + settings.src.elm)
-    .pipe(elm())
-    .pipe(gulp.dest(__dirname + settings.dist.js));
+  gulp.src(__dirname + settings.src.elm)
+    .pipe(elm().on('error', logError))
+    .pipe(gulp.dest(__dirname + settings.dist.js))
 });
 
 gulp.task('watch', function () {
