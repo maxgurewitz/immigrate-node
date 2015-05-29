@@ -3,12 +3,15 @@ module Immigration where
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Signal exposing (Signal, Address)
+import Signal exposing (Signal, Address, merge)
+-- import Router exposing (Route, match, (:->))
+-- import Router exposing (match)
+import History exposing (path)
 import String
 
 main : Signal Html
-main =
-  Signal.map2 (view actions.address) model
+main =  
+  Signal.map2 (view actions.address) path model
 
 model : Signal Model
 model =
@@ -31,8 +34,10 @@ type Action
   = NoOp
   | Update
 
-view : Address Action -> Model -> Html
-view address model =
+
+type alias View = Address Action -> String -> Model -> Html
+view : View
+view address path model =
   div []
     [ text model.field
     , text "bar"
