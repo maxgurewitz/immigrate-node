@@ -4,11 +4,9 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Signal exposing (Signal, Address, merge)
--- import Router exposing (Route, match, (:->))
--- import Router exposing (match)
 import History exposing (path)
 import List exposing (head)
-import String exposing (contains)
+import String exposing (startsWith)
 
 main : Signal Html
 main =  
@@ -37,11 +35,10 @@ type Action
 
 type alias Route = (String, Page)
 buildRouter : List(Route) -> Page -> String -> Page
-buildRouter routes defaultPage path =
-   case routes of
+buildRouter routes defaultPage path = 
+  case routes of
      [] -> defaultPage
-     -- note this logic isn't quite right, need to match first section of string only
-     hd::tl -> if | contains (fst hd) path -> snd hd 
+     hd::tl -> if | startsWith (fst hd) path -> snd hd 
                   | otherwise -> buildRouter tl defaultPage path
 
 router = buildRouter [ ("/home", homePage) ] notFoundPage
