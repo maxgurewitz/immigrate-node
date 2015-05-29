@@ -7,7 +7,8 @@ import Signal exposing (Signal, Address, merge)
 -- import Router exposing (Route, match, (:->))
 -- import Router exposing (match)
 import History exposing (path)
-import String
+import List exposing (head)
+import String exposing (contains)
 
 main : Signal Html
 main =  
@@ -34,10 +35,25 @@ type Action
   = NoOp
   | Update
 
+type alias Route = (String, Page)
+buildRouter : List(Route) -> Page -> String -> Page
+buildRouter routes defaultPage path =
+   case routes of
+     [] -> defaultPage
+     -- note this logic isn't quite right, need to match first section of string only
+     hd::tl -> if | contains (fst hd) path -> snd hd 
+                  | otherwise -> buildRouter tl defaultPage path
 
+router = buildRouter [ ("/home", homePage) ] notFoundPage
+  
 type alias View = Address Action -> String -> Model -> Html
 view : View
-view address path model =
+view address path model = (router path) address model
+
+type alias Page = Address Action -> Model -> Html
+
+homePage : Page
+homePage address model =
   div []
     [ text model.field
     , text "bar"
@@ -45,6 +61,10 @@ view address path model =
       [ onClick address Update ]
       [ text "button" ]
     ]
+
+notFoundPage : Page
+notFoundPage address model =
+  text "404"
 
 update action model =
   case action of 
