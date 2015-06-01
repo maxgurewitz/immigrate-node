@@ -4,9 +4,10 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Signal exposing (Signal, Address, merge)
-import History exposing (path)
+import History exposing (path, setPath)
 import List exposing (head)
 import String exposing (startsWith)
+import Dict
 
 main : Signal Html
 main =  
@@ -41,7 +42,9 @@ buildRouter routes defaultPage path = case routes of
   hd::tl -> if | (fst hd) == path -> snd hd 
                | otherwise -> buildRouter tl defaultPage path
 
-router = buildRouter [ ("/", homePage) ] notFoundPage
+router = buildRouter [ ("/", homePage)
+                     , ("/about", aboutPage) 
+                     ] notFoundPage
   
 type alias View = Address Action -> String -> Model -> Html
 
@@ -58,7 +61,15 @@ type alias Component = Address Action -> Model -> Html
 
 homePage : Component
 homePage address model =
-  div [] [ navbar "home" address model
+  div [ class "home" ] [ navbar "/" address model
+    , text model.field
+    , text "bar"
+    , button [ onClick address Update ] [ text "button" ]
+  ]
+
+aboutPage : Component
+aboutPage address model =
+  div [ class "about" ] [ navbar "/about" address model
     , text model.field
     , text "bar"
     , button [ onClick address Update ] [ text "button" ]
@@ -69,12 +80,16 @@ notFoundPage address model =
   text "404"
 
 navbar : String -> Component
-navbar page address model =
+navbar currentPath address model =
   nav [ class "navbar navbar-default" ] [
     div [ class "container-fluid" ] [ 
 
       div [ class "navbar-header" ] [ 
-        button [ attribute "type" "button", class "navbar-toggle collapsed" ] [
+        button [ attribute "type" "button"
+               , attribute "data-toggle" "collapse"
+               , attribute "data-target" "#js-navbar-collapse"
+               , class "navbar-toggle collapsed" 
+        ] [
           span [ class "sr-only" ] [ text "Toggle Navigation" ]
           , span [ class "icon-bar" ] []
           , span [ class "icon-bar" ] []
@@ -83,12 +98,22 @@ navbar page address model =
       ]
 
       , div [ class "collapse navbar-collapse" ] [
-          ul [ class "nav navbar-nav" ] [
-            li [] [ a [] [ text "Home" ] ]
-          ]
-      ]
+          ul [ class "nav navbar-nav" ] (navbarLinks currentPath)
+        ]
     ]
   ]
+
+navbarLinks : String -> List(Html)
+navbarLinks currentPath =
+  let pathToLinkName = Dict.fromList [ ("/", "Home")
+                                 , ("/about", "About")
+                                 ]
+      pathToLink = \path -> case (Dict.get path pathToLinkName) of
+        -- Just linkName -> li [] [ a [ onClick setPath path ] [ text linkName ] ]
+        Just linkName -> li [] [ a [] [ text linkName ] ]
+        Nothing -> text "Not Found"
+  in 
+      List.map pathToLink (Dict.keys pathToLinkName)
 
 update action model =
   case action of 
