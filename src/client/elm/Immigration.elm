@@ -52,23 +52,43 @@ type alias Layout = Html -> Html
 
 baseLayout : Layout
 baseLayout content =
-  div [ class "app" ] [ text "blarg", content ]
+  div [ class "app" ] [ content ]
 
 type alias Component = Address Action -> Model -> Html
 
 homePage : Component
 homePage address model =
-  div []
-    [ text model.field
+  div [] [ navbar "home" address model
+    , text model.field
     , text "bar"
-    , button 
-      [ onClick address Update ]
-      [ text "button" ]
-    ]
+    , button [ onClick address Update ] [ text "button" ]
+  ]
 
 notFoundPage : Component
 notFoundPage address model =
   text "404"
+
+navbar : String -> Component
+navbar page address model =
+  nav [ class "navbar navbar-default" ] [
+    div [ class "container-fluid" ] [ 
+
+      div [ class "navbar-header" ] [ 
+        button [ attribute "type" "button", class "navbar-toggle collapsed" ] [
+          span [ class "sr-only" ] [ text "Toggle Navigation" ]
+          , span [ class "icon-bar" ] []
+          , span [ class "icon-bar" ] []
+          , span [ class "icon-bar" ] []
+        ]
+      ]
+
+      , div [ class "collapse navbar-collapse" ] [
+          ul [ class "nav navbar-nav" ] [
+            li [] [ a [] [ text "Home" ] ]
+          ]
+      ]
+    ]
+  ]
 
 update action model =
   case action of 
