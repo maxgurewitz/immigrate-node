@@ -33,23 +33,30 @@ type Action
   = NoOp
   | Update
 
-type alias Route = (String, Page)
-buildRouter : List(Route) -> Page -> String -> Page
-buildRouter routes defaultPage path = 
-  case routes of
-     [] -> defaultPage
-     hd::tl -> if | startsWith (fst hd) path -> snd hd 
-                  | otherwise -> buildRouter tl defaultPage path
+type alias Route = (String, Component)
 
-router = buildRouter [ ("/home", homePage) ] notFoundPage
+buildRouter : List(Route) -> Component -> String -> Component
+buildRouter routes defaultPage path = case routes of
+  [] -> defaultPage
+  hd::tl -> if | (fst hd) == path -> snd hd 
+               | otherwise -> buildRouter tl defaultPage path
+
+router = buildRouter [ ("/", homePage) ] notFoundPage
   
 type alias View = Address Action -> String -> Model -> Html
+
 view : View
-view address path model = (router path) address model
+view address path model = baseLayout ((router path) address model)
 
-type alias Page = Address Action -> Model -> Html
+type alias Layout = Html -> Html
 
-homePage : Page
+baseLayout : Layout
+baseLayout content =
+  div [ class "app" ] [ text "blarg", content ]
+
+type alias Component = Address Action -> Model -> Html
+
+homePage : Component
 homePage address model =
   div []
     [ text model.field
@@ -59,7 +66,7 @@ homePage address model =
       [ text "button" ]
     ]
 
-notFoundPage : Page
+notFoundPage : Component
 notFoundPage address model =
   text "404"
 
