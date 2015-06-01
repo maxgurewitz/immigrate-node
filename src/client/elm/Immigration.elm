@@ -4,26 +4,34 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Signal exposing (Signal, Address, merge)
-import History exposing (path, setPath)
+import History
 import List exposing (head)
 import String exposing (startsWith)
 import Dict
 
 main : Signal Html
 main =  
-  Signal.map2 (view actions.address) path model
+  Signal.map2 (view actions.address) History.path model
 
 model : Signal Model
 model =
   Signal.foldp update initialModel actions.signal
 
+mergedSignals = Signal.mergeMany [ actions.signal
+                                 , pathChanges
+                                 ]
+
+pathChanges = Signal.map (\path -> PathChange path) History.path
+
 type alias Model =
   { field : String
+  , path : String
   }
 
 initialModel : Model
 initialModel =
   { field = "foo"
+  , path = "/"
   }
 
 actions : Signal.Mailbox Action
@@ -33,6 +41,7 @@ actions =
 type Action
   = NoOp
   | Update
+  | PathChange String
 
 type alias Route = (String, Component)
 
@@ -115,13 +124,13 @@ navbarLinks currentPath =
   in 
       List.map pathToLink (Dict.keys pathToLinkName)
 
-update action model =
-  case action of 
-    NoOp -> model
-    Update ->
-      let value = 
-        case model.field of
-          "foo" -> "baz"
-          "baz" -> "foo"
-      in
-         { model | field <- value }
+update action model = case action of 
+  NoOp -> model
+  -- PathChange newPath -> { model | path <- newPath }
+  Update ->
+    let value = 
+      case model.field of
+        "foo" -> "baz"
+        "baz" -> "foo"
+    in
+       { model | field <- value }
