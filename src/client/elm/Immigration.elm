@@ -106,23 +106,21 @@ navbar currentPath address model =
         ]
       ]
 
-      , div [ class "collapse navbar-collapse" ] [
-          ul [ class "nav navbar-nav" ] (navbarLinks currentPath address)
-        ]
+      , div [ class "collapse navbar-collapse" ] [ navbarLinks address model ]
     ]
   ]
 
-navbarLinks : String -> Address Action -> List(Html)
-navbarLinks currentPath address =
-  let pathToLinkName = Dict.fromList [ ("/", "Home")
-                                 , ("/about", "About")
-                                 ]
-      pathToLink = \path -> case (Dict.get path pathToLinkName) of
-        Just linkName -> li [] [ a [ onClick address (PathChange path) ] [ text linkName ] ]
-        Nothing -> text "Not Found"
+navbarLinks : Component
+navbarLinks address model =
+  let pathsAndNames = [ ("/", "Home")
+                     , ("/about", "About")
+                     ]
+      pathToLink = \(path, name) ->
+        li [] [ a [ onClick address (PathChange path) ] [ text name ] ]
+      links = List.map pathToLink pathsAndNames
   in 
-      List.map pathToLink (Dict.keys pathToLinkName)
-
+      ul [ class "nav navbar-nav" ] links
+ 
 update action model = case action of 
   NoOp -> model
   PathChange newPath -> { model | path <- newPath }
