@@ -18,8 +18,8 @@ model : Signal Model
 model =
   Signal.foldp update initialModel actions.signal
 
-port pathToAction : Signal (Task x ())
-port pathToAction = 
+port pathFromModel : Signal (Task x ())
+port pathFromModel = 
   let setPathFromModel = \currentModel -> 
         History.setPath currentModel.path
   in  Signal.map setPathFromModel model
@@ -54,35 +54,60 @@ buildRouter routes defaultPage path = case routes of
 
 router = buildRouter [ ("/", homePage)
                      , ("/about", aboutPage) 
+                     , ("/immigrate", immigratePage) 
                      ] notFoundPage
   
 type alias View = Address Action -> Model -> Html
 
 view : View
-view address model = baseLayout ((router model.path) address model)
+view address model = baseLayout [ ((router model.path) address model) ]
 
-type alias Layout = Html -> Html
+type alias Layout = List(Html) -> Html
 
 baseLayout : Layout
 baseLayout content =
-  div [ class "app" ] [ content ]
+  div [ class "app" ] content
+
+pageLayout : Address Action -> Model -> Layout
+pageLayout address model content = 
+  div [ class "page-container" ] [
+    navbar address model
+    , div [ class "row" ] [ 
+        div [ class "panel panel-default col-md-8 col-md-offset-2" ] [
+          div [ class "panel-body" ] content
+        ]
+    ]
+  ]
 
 type alias Component = Address Action -> Model -> Html
 
 homePage : Component
 homePage address model =
-  div [ class "home" ] [ navbar address model
-    , text model.field
-    , text "bar"
-    , button [ onClick address Update ] [ text "button" ]
+  pageLayout address model [
+    div [ class "home" ] [
+      text model.field
+      , text "bar"
+      , button [ onClick address Update ] [ text "button" ]
+    ]
+  ]
+
+companyName = "Naturalize"
+
+immigratePage : Component
+immigratePage address model =
+  pageLayout address model [
+    text ("At " ++ companyName ++ " we're all about helping you build a better life.
+          If you have had trouble with expensive immigration lawyers and confusing governmental bureaucracies give us a try.  We will make naturalization easy!")
   ]
 
 aboutPage : Component
 aboutPage address model =
-  div [ class "about" ] [ navbar address model
-    , text model.field
-    , text "dook"
-    , button [ onClick address Update ] [ text "button" ]
+  pageLayout address model [
+    text ("At " ++ companyName ++ " we're all about helping you build a better life.")
+    , br [] []
+    , br [] []
+    , text "If you have had trouble with expensive immigration lawyers and
+    confusing governmental bureaucracies give us a try.  We will make naturalization easy!"
   ]
 
 notFoundPage : Component
@@ -113,6 +138,7 @@ navbar address model =
 navbarLinks : Component
 navbarLinks address model =
   let pathsAndNames = [ ("/", "Home")
+                     , ("/immigrate", "Immigrate")
                      , ("/about", "About")
                      ]
       pathToLink = \(path, name) ->
