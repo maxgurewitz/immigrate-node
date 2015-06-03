@@ -71,7 +71,7 @@ type alias Component = Address Action -> Model -> Html
 
 homePage : Component
 homePage address model =
-  div [ class "home" ] [ navbar "/" address model
+  div [ class "home" ] [ navbar address model
     , text model.field
     , text "bar"
     , button [ onClick address Update ] [ text "button" ]
@@ -79,7 +79,7 @@ homePage address model =
 
 aboutPage : Component
 aboutPage address model =
-  div [ class "about" ] [ navbar "/about" address model
+  div [ class "about" ] [ navbar address model
     , text model.field
     , text "dook"
     , button [ onClick address Update ] [ text "button" ]
@@ -89,8 +89,8 @@ notFoundPage : Component
 notFoundPage address model =
   text "404"
 
-navbar : String -> Component
-navbar currentPath address model =
+navbar : Component
+navbar address model =
   nav [ class "navbar navbar-default" ] [
     div [ class "container-fluid" ] [ 
       div [ class "navbar-header" ] [ 
@@ -103,9 +103,9 @@ navbar currentPath address model =
           , span [ class "icon-bar" ] []
           , span [ class "icon-bar" ] []
           , span [ class "icon-bar" ] []
-        ]
+        ],  
+        a [ class "navbar-brand", href "#" ] [ text "Naturalize" ]
       ]
-
       , div [ class "collapse navbar-collapse" ] [ navbarLinks address model ]
     ]
   ]
