@@ -95,9 +95,7 @@ companyName = "Naturalize"
 
 immigratePage : Component
 immigratePage address model =
-  pageLayout address model [
-    text ("At " ++ companyName ++ " we're all about helping you build a better life.
-          If you have had trouble with expensive immigration lawyers and confusing governmental bureaucracies give us a try.  We will make naturalization easy!")
+  pageLayout address model [ input [] []
   ]
 
 aboutPage : Component
