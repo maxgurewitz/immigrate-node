@@ -8,6 +8,7 @@ import History
 import List exposing (head)
 import String exposing (startsWith)
 import Dict
+import Task exposing (Task)
 
 main : Signal Html
 main =  
@@ -25,11 +26,9 @@ pathChanges = Signal.map (\path -> PathChange path) History.path
 
 port pathToAction : Signal (Task x ())
 port pathToAction = 
--- send : Address a -> a -> Task x ()
--- setPath : String -> Task error ()
--- want to have a button that sets model.path
--- want path to update to whatever is set in the model
--- want the model.path to be initialized to correct path 
+  let setPathFromModel = \currentModel -> 
+        History.setPath currentModel.path
+  in  Signal.map setPathFromModel model
   
 type alias Model =
   { field : String
@@ -88,7 +87,7 @@ aboutPage : Component
 aboutPage address model =
   div [ class "about" ] [ navbar "/about" address model
     , text model.field
-    , text "bar"
+    , text "dook"
     , button [ onClick address Update ] [ text "button" ]
   ]
 
@@ -115,19 +114,18 @@ navbar currentPath address model =
       ]
 
       , div [ class "collapse navbar-collapse" ] [
-          ul [ class "nav navbar-nav" ] (navbarLinks currentPath)
+          ul [ class "nav navbar-nav" ] (navbarLinks currentPath address)
         ]
     ]
   ]
 
-navbarLinks : String -> List(Html)
-navbarLinks currentPath =
+navbarLinks : String -> Address Action -> List(Html)
+navbarLinks currentPath address =
   let pathToLinkName = Dict.fromList [ ("/", "Home")
                                  , ("/about", "About")
                                  ]
       pathToLink = \path -> case (Dict.get path pathToLinkName) of
-        -- Just linkName -> li [] [ a [ onClick setPath path ] [ text linkName ] ]
-        Just linkName -> li [] [ a [] [ text linkName ] ]
+        Just linkName -> li [] [ a [ onClick address (PathChange path) ] [ text linkName ] ]
         Nothing -> text "Not Found"
   in 
       List.map pathToLink (Dict.keys pathToLinkName)
