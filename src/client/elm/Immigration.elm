@@ -116,7 +116,8 @@ navbarLinks address model =
                      , ("/about", "About")
                      ]
       pathToLink = \(path, name) ->
-        li [] [ a [ onClick address (PathChange path) ] [ text name ] ]
+        li [ if path == model.path then class "active" else class "" ] 
+        [ a [ onClick address (PathChange path) ] [ text name ] ]
       links = List.map pathToLink pathsAndNames
   in 
       ul [ class "nav navbar-nav" ] links
