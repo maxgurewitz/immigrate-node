@@ -12,17 +12,11 @@ import Task exposing (Task)
 
 main : Signal Html
 main =  
-  Signal.map2 (view actions.address) History.path model
+  Signal.map (view actions.address) model
 
 model : Signal Model
 model =
   Signal.foldp update initialModel actions.signal
-
-mergedSignals = Signal.mergeMany [ actions.signal
-                                 , pathChanges
-                                 ]
-
-pathChanges = Signal.map (\path -> PathChange path) History.path
 
 port pathToAction : Signal (Task x ())
 port pathToAction = 
@@ -62,10 +56,10 @@ router = buildRouter [ ("/", homePage)
                      , ("/about", aboutPage) 
                      ] notFoundPage
   
-type alias View = Address Action -> String -> Model -> Html
+type alias View = Address Action -> Model -> Html
 
 view : View
-view address path model = baseLayout ((router path) address model)
+view address model = baseLayout ((router model.path) address model)
 
 type alias Layout = Html -> Html
 
@@ -99,7 +93,6 @@ navbar : String -> Component
 navbar currentPath address model =
   nav [ class "navbar navbar-default" ] [
     div [ class "container-fluid" ] [ 
-
       div [ class "navbar-header" ] [ 
         button [ attribute "type" "button"
                , attribute "data-toggle" "collapse"
