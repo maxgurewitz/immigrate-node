@@ -23,6 +23,14 @@ mergedSignals = Signal.mergeMany [ actions.signal
 
 pathChanges = Signal.map (\path -> PathChange path) History.path
 
+port pathToAction : Signal (Task x ())
+port pathToAction = 
+-- send : Address a -> a -> Task x ()
+-- setPath : String -> Task error ()
+-- want to have a button that sets model.path
+-- want path to update to whatever is set in the model
+-- want the model.path to be initialized to correct path 
+  
 type alias Model =
   { field : String
   , path : String
@@ -126,7 +134,7 @@ navbarLinks currentPath =
 
 update action model = case action of 
   NoOp -> model
-  -- PathChange newPath -> { model | path <- newPath }
+  PathChange newPath -> { model | path <- newPath }
   Update ->
     let value = 
       case model.field of
