@@ -1,4 +1,4 @@
-module Immigration where
+module Main where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -9,6 +9,7 @@ import List exposing (head)
 import String exposing (startsWith)
 import Dict
 import Task exposing (Task)
+import Constants exposing (..)
 
 main : Signal Html
 main =  
@@ -90,8 +91,6 @@ homePage address model =
       , button [ onClick address Update ] [ text "button" ]
     ]
   ]
-
-companyName = "Naturalize"
 
 immigratePage : Component
 immigratePage address model =
