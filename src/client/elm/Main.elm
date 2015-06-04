@@ -94,7 +94,8 @@ homePage address model =
 
 immigratePage : Component
 immigratePage address model =
-  pageLayout address model [ input [] []
+  pageLayout address model [ input [ class "immigration-input" ] []
+    , input [ class "immigration-input" ] []
   ]
 
 aboutPage : Component
