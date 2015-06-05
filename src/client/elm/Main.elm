@@ -10,6 +10,7 @@ import String exposing (startsWith)
 import Dict
 import Task exposing (Task)
 import Constants exposing (..)
+import Native.Main
 
 main : Signal Html
 main =  
@@ -24,7 +25,10 @@ port pathFromModel =
   let setPathFromModel = \currentModel -> 
         History.setPath currentModel.path
   in  Signal.map setPathFromModel model
-  
+
+initialPath : String
+initialPath = Native.Main.initialPath
+
 type alias Model =
   { field : String
   , path : String
@@ -33,7 +37,7 @@ type alias Model =
 initialModel : Model
 initialModel =
   { field = "foo"
-  , path = "/"
+  , path = initialPath
   }
 
 actions : Signal.Mailbox Action

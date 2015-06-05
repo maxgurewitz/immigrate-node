@@ -6,6 +6,7 @@
     "source-directories": [
         "./src/client/elm"
     ],
+    "native-modules": true,
     "exposed-modules": [],
     "dependencies": {
         "TheSeamau5/elm-history": "1.0.0 <= v < 2.0.0",
