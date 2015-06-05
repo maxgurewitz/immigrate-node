@@ -78,8 +78,8 @@ pageLayout address model content =
   div [ class "page-container" ] [
     navbar address model
     , div [ class "row" ] [ 
-        div [ class "panel panel-default col-md-8 col-md-offset-2" ] [
-          div [ class "panel-body" ] content
+        div [ class "panel panel-default col-md-6 col-md-offset-3" ] [
+          div [ class "panel-body row" ] content
         ]
     ]
   ]
@@ -96,18 +96,25 @@ homePage address model =
     ]
   ]
 
+-- field : Style -> (Content -> Signal.Message) -> String -> Content -> Element
+immigrateInput : Component
+immigrateInput address model = input [ class "immigration-input col-sm-8 pull-right" 
+  ] []
+
 immigratePage : Component
 immigratePage address model =
-  pageLayout address model [ input [ class "immigration-input" ] []
-    , input [ class "immigration-input" ] []
+  pageLayout address model [ immigrateInput address model
   ]
+
+brk : Html
+brk = br [] []
 
 aboutPage : Component
 aboutPage address model =
   pageLayout address model [
     text ("At " ++ companyName ++ " we're all about helping you build a better life.")
-    , br [] []
-    , br [] []
+    , brk
+    , brk
     , text "If you have had trouble with expensive immigration lawyers and
     confusing governmental bureaucracies give us a try.  We will make naturalization easy!"
   ]
