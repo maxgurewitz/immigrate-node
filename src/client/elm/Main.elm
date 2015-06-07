@@ -24,7 +24,5 @@ port pathFromModel =
         History.setPath currentModel.path
   in  Signal.map setPathFromModel model
 
-type alias View = Address Action -> Model -> Html
-
-view : View
+view : Address Action -> Model -> Html
 view address model = baseLayout [ ((router model.path) address model) ] 

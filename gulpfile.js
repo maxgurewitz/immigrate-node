@@ -4,6 +4,9 @@ var gutil = require('gulp-util');
 var less = require('gulp-less');
 var shell = require('gulp-shell');
 var elm = require('gulp-elm');
+var rename = require('gulp-rename');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
 var settings = require('./settings');
 
 function logError (err) {
@@ -18,7 +21,7 @@ gulp.task('cleanCSS', shell.task([
   'rm ' + __dirname + settings.dist.css + '*.css'
 ], { ignoreErrors: true }));
 
-gulp.task('build', ['install', 'elm-init', 'fonts']);
+gulp.task('build', ['install', 'elmInit', 'fonts']);
 
 gulp.task('install', shell.task(['npm i']));
 
@@ -27,7 +30,7 @@ gulp.task('fonts', shell.task([
     __dirname + settings.dist.fonts,
 ], { ignoreErrors: true }));
 
-gulp.task('elm-init', elm.init);
+gulp.task('elmInit', elm.init);
 
 gulp.task('less', ['cleanCSS'], function () {
   gulp.src(__dirname + settings.src.css)
@@ -40,6 +43,14 @@ gulp.task('less', ['cleanCSS'], function () {
   .pipe(gulp.dest(__dirname + settings.dist.css));
 });
 
+gulp.task('clientJS', ['cleanJS'], function () {
+  var bundle = browserify(__dirname + settings.src.js).bundle();
+  bundle
+    .pipe(source(__dirname + settings.src.js))
+    .pipe(rename(settings.bundleName))
+    .pipe(gulp.dest(__dirname + settings.dist.elmJs));
+});
+
 gulp.task('elm', ['cleanJS'], function () {
   gulp.src(__dirname + settings.src.elm)
     .pipe(elm().on('error', logError))
@@ -47,6 +58,7 @@ gulp.task('elm', ['cleanJS'], function () {
 });
 
 gulp.task('watch', function () {
+  gulp.watch(__dirname + settings.src.clientJS, ['clientJS']);
   gulp.watch(__dirname + settings.src.css, ['less']);
   gulp.watch(__dirname + settings.src.elm, ['elm']);
 });
@@ -59,4 +71,4 @@ gulp.task('start', function () {
   });
 });
 
-gulp.task('default', ['start', 'less', 'elm', 'watch']);
+gulp.task('default', ['start', 'less', 'elm', 'clientJS', 'watch']);

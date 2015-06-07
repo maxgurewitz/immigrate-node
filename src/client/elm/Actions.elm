@@ -1,6 +1,6 @@
 module Actions where
 
-import Signal exposing (Signal, Mailbox, Address)
+import Signal exposing (Mailbox, Address)
 
 actions : Mailbox Action
 actions =
@@ -10,3 +10,4 @@ type Action
   = NoOp
   | Update
   | PathChange String
+  | ToggleNavbar

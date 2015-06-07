@@ -8,10 +8,12 @@ initialPath = Native.Main.initialPath
 type alias Model =
   { field : String
   , path : String
+  , navbarCollapsed : Bool
   }
 
 initialModel : Model
 initialModel =
   { field = "foo"
   , path = initialPath
+  , navbarCollapsed = True
   }
