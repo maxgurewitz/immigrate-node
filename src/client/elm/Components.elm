@@ -67,10 +67,16 @@ notFoundPage address model =
 
 navbar : Component
 navbar address model =
-  let defaultCollapseAttrs = [ id "js-navbar-collapse" ]
-      collapseAttrs = defaultCollapseAttrs ++ (if model.navbarCollapsed
-      then [ class "collapse navbar-collapse", attribute "aria-expanded" "false" ]
-      else [ class "collapse navbar-collapse in", attribute "aria-expanded" "true" ])
+  -- let defaultCollapseAttrs = [ id "js-navbar-collapse" ]
+  --     collapseAttrs = defaultCollapseAttrs ++ (if model.navbarCollapsed
+  --     then [ class "collapse navbar-collapse", attribute "aria-expanded" "false" ]
+  --     else [ class "collapse navbar-collapse in", attribute "aria-expanded" "true" ])
+  let collapseAttrs = [ class "collapse navbar-collapse"
+                      , attribute "aria-expanded" "false" 
+                      , id "js-navbar-collapse"
+                      , attribute "role" "presentation"
+                      , style [ ("height", "100px") ]
+                      ]
 
   -- https://github.com/twbs/bootstrap/blob/master/js/collapse.js
   in  nav [ class "navbar navbar-default" ] [
@@ -79,7 +85,7 @@ navbar address model =
             button [ attribute "type" "button"
                    , attribute "data-toggle" "collapse"
                    , attribute "data-target" "#js-navbar-collapse"
-                   , attribute "controls" "js-navbar-collapse"
+                   , attribute "aria-controls" "js-navbar-collapse"
                    , attribute "aria-expanded" "true"
                    , class "navbar-toggle collapsed" 
                    , onClick address ToggleNavbar
