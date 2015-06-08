@@ -37,14 +37,24 @@ homePage address model =
     ]
   ]
 
-immigrateInput : Component
-immigrateInput address model = input [ class "immigration-input col-sm-8 pull-right" 
-  ] []
+immigrateInput : String -> Html
+immigrateInput name = 
+  div [ class "form-group " ] [
+    label [ 
+      attribute "for" name 
+      , class "col-xs-offset-1"
+    ] [ text name ]
+    , input [ 
+      class "immigration-input col-xs-10 col-xs-offset-1" 
+      , id name
+    ] []
+  ]
 
 immigratePage : Component
 immigratePage address model =
-  pageLayout address model [ immigrateInput address model
-  , immigrateInput address model
+  pageLayout address model [ 
+    immigrateInput "Name"
+    , immigrateInput "Age"
   ]
 
 brk : Html
@@ -75,7 +85,6 @@ navbar address model =
                , attribute "aria-controls" "js-navbar-collapse"
                , attribute "aria-expanded" "true"
                , class "navbar-toggle collapsed" 
-               , onClick address ToggleNavbar
         ] [
           span [ class "sr-only" ] [ text "Toggle Navigation" ]
           , span [ class "icon-bar" ] []

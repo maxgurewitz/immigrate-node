@@ -10,4 +10,3 @@ type Action
   = NoOp
   | Update
   | PathChange String
-  | ToggleNavbar
