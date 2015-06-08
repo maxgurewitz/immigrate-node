@@ -16,54 +16,48 @@ baseLayout content =
 
 pageLayout : Address Action -> Model -> Layout
 pageLayout address model content = 
-  div [ class "page-container" ] [
-    navbar address model
-    , div [ class "row" ] [ 
-        div [ class "panel panel-default col-md-6 col-md-offset-3" ] [
-          div [ class "panel-body row" ] content
-        ]
-    ]
-  ]
+  div [ class "page-container" ] 
+      [ navbar address model
+      , div [ class "row" ] 
+            [ div [ class "panel panel-default col-md-6 col-md-offset-3" ] 
+                  [ div [ class "panel-body row" ] content ] 
+            ]
+      ]
 
 type alias Component = Address Action -> Model -> Html
 
 homePage : Component
-homePage address model =
-  pageLayout address model [
-    div [ class "home" ] [
-      text model.field
-      , text "bar"
-      , button [ onClick address Update ] [ text "button" ]
-    ]
+homePage address model = pageLayout address model 
+  [ div [ class "home" ] 
+        [ text model.field
+        , text "bar"
+        , button [ onClick address Update ] [ text "button" ]
+        ]
   ]
 
 immigrateInput : String -> Html
 immigrateInput name = 
-  div [ class "form-group " ] [
-    label [ 
-      attribute "for" name 
-      , class "col-xs-offset-1"
-    ] [ text name ]
-    , input [ 
-      class "immigration-input col-xs-10 col-xs-offset-1" 
-      , id name
-    ] []
-  ]
+  div [ class "form-group " ] 
+      [ label [ attribute "for" name 
+              , class "col-xs-offset-1"
+              ] [ text name ]
+      , input [ class "immigration-input col-xs-10 col-xs-offset-1" 
+              , id name
+              ] []
+      ]
 
 immigratePage : Component
-immigratePage address model =
-  pageLayout address model [ 
-    immigrateInput "Name"
-    , immigrateInput "Age"
+immigratePage address model = pageLayout address model 
+  [ immigrateInput "Name"
+  , immigrateInput "Age"
   ]
 
 brk : Html
 brk = br [] []
 
 aboutPage : Component
-aboutPage address model =
-  pageLayout address model [
-    text ("At " ++ companyName ++ " we're all about helping you build a better life.")
+aboutPage address model = pageLayout address model 
+  [ text ("At " ++ companyName ++ " we're all about helping you build a better life.")
     , brk
     , brk
     , text "If you have had trouble with expensive immigration lawyers and 
@@ -76,30 +70,29 @@ notFoundPage address model =
 
 navbar : Component
 navbar address model =
-  nav [ class "navbar navbar-default" ] [
-    div [ class "container-fluid" ] [ 
-      div [ class "navbar-header" ] [ 
-        button [ attribute "type" "button"
-               , attribute "data-toggle" "collapse"
-               , attribute "data-target" "#js-navbar-collapse"
-               , attribute "aria-controls" "js-navbar-collapse"
-               , attribute "aria-expanded" "true"
-               , class "navbar-toggle collapsed" 
-        ] [
-          span [ class "sr-only" ] [ text "Toggle Navigation" ]
-          , span [ class "icon-bar" ] []
-          , span [ class "icon-bar" ] []
-          , span [ class "icon-bar" ] []
-        ],  
-        a [ class "navbar-brand", href "#" ] [ text "Naturalize" ]
+  nav [ class "navbar navbar-default" ] 
+      [ div [ class "container-fluid" ] 
+            [ div [ class "navbar-header" ] 
+                  [ button [ attribute "type" "button"
+                           , attribute "data-toggle" "collapse"
+                           , attribute "data-target" "#js-navbar-collapse"
+                           , attribute "aria-controls" "js-navbar-collapse"
+                           , attribute "aria-expanded" "true"
+                           , class "navbar-toggle collapsed" 
+                           ] [ span [ class "sr-only" ] [ text "Toggle Navigation" ]
+                             , span [ class "icon-bar" ] []
+                             , span [ class "icon-bar" ] []
+                             , span [ class "icon-bar" ] []
+                             ]  
+                  , a [ class "navbar-brand", href "#" ] [ text "Naturalize" ]
+                  ]
+            , div [ class "collapse navbar-collapse"
+                  , attribute "aria-expanded" "false" 
+                  , id "js-navbar-collapse"
+                  , attribute "role" "presentation"
+                  ] [ navbarLinks address model ]
+            ]
       ]
-      , div [ class "collapse navbar-collapse"
-            , attribute "aria-expanded" "false" 
-            , id "js-navbar-collapse"
-            , attribute "role" "presentation"
-            ] [ navbarLinks address model ]
-    ]
-  ]
 
 navbarLinks : Component
 navbarLinks address model =
