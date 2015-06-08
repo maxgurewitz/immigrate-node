@@ -37,7 +37,6 @@ homePage address model =
     ]
   ]
 
--- field : Style -> (Content -> Signal.Message) -> String -> Content -> Element
 immigrateInput : Component
 immigrateInput address model = input [ class "immigration-input col-sm-8 pull-right" 
   ] []
@@ -67,39 +66,31 @@ notFoundPage address model =
 
 navbar : Component
 navbar address model =
-  -- let defaultCollapseAttrs = [ id "js-navbar-collapse" ]
-  --     collapseAttrs = defaultCollapseAttrs ++ (if model.navbarCollapsed
-  --     then [ class "collapse navbar-collapse", attribute "aria-expanded" "false" ]
-  --     else [ class "collapse navbar-collapse in", attribute "aria-expanded" "true" ])
-  let collapseAttrs = [ class "collapse navbar-collapse"
-                      , attribute "aria-expanded" "false" 
-                      , id "js-navbar-collapse"
-                      , attribute "role" "presentation"
-                      , style [ ("height", "100px") ]
-                      ]
-
-  -- https://github.com/twbs/bootstrap/blob/master/js/collapse.js
-  in  nav [ class "navbar navbar-default" ] [
-        div [ class "container-fluid" ] [ 
-          div [ class "navbar-header" ] [ 
-            button [ attribute "type" "button"
-                   , attribute "data-toggle" "collapse"
-                   , attribute "data-target" "#js-navbar-collapse"
-                   , attribute "aria-controls" "js-navbar-collapse"
-                   , attribute "aria-expanded" "true"
-                   , class "navbar-toggle collapsed" 
-                   , onClick address ToggleNavbar
-            ] [
-              span [ class "sr-only" ] [ text "Toggle Navigation" ]
-              , span [ class "icon-bar" ] []
-              , span [ class "icon-bar" ] []
-              , span [ class "icon-bar" ] []
-            ],  
-            a [ class "navbar-brand", href "#" ] [ text "Naturalize" ]
-          ]
-          , div collapseAttrs [ navbarLinks address model ]
-        ]
+  nav [ class "navbar navbar-default" ] [
+    div [ class "container-fluid" ] [ 
+      div [ class "navbar-header" ] [ 
+        button [ attribute "type" "button"
+               , attribute "data-toggle" "collapse"
+               , attribute "data-target" "#js-navbar-collapse"
+               , attribute "aria-controls" "js-navbar-collapse"
+               , attribute "aria-expanded" "true"
+               , class "navbar-toggle collapsed" 
+               , onClick address ToggleNavbar
+        ] [
+          span [ class "sr-only" ] [ text "Toggle Navigation" ]
+          , span [ class "icon-bar" ] []
+          , span [ class "icon-bar" ] []
+          , span [ class "icon-bar" ] []
+        ],  
+        a [ class "navbar-brand", href "#" ] [ text "Naturalize" ]
       ]
+      , div [ class "collapse navbar-collapse"
+            , attribute "aria-expanded" "false" 
+            , id "js-navbar-collapse"
+            , attribute "role" "presentation"
+            ] [ navbarLinks address model ]
+    ]
+  ]
 
 navbarLinks : Component
 navbarLinks address model =
