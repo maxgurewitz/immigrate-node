@@ -17,10 +17,12 @@
     "url": "https://github.com/maxgurewitz/immigrate-node/issues"
   },
   "devDependencies": {
+    "browserify": "^10.2.4",
     "elm": "^1.4.1",
     "gulp-elm": "^0.2.0",
     "gulp-less": "^3.0.3",
     "gulp-nodemon": "^2.0.2",
+    "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.4.1",
     "gulp-util": "^3.0.4",
     "jquery": "^2.1.4",
@@ -28,6 +30,7 @@
     "react": "^0.13.3",
     "react-router": "^0.13.3",
     "reflux": "^0.2.7",
+    "vinyl-source-stream": "^1.1.0",
     "webpack": "^1.9.5",
     "webpack-dev-server": "^1.8.2"
   },

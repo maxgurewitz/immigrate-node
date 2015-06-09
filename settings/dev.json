@@ -1,12 +1,14 @@
 {
   "src": {
     "css": "/src/client/css/*.less",
-    "js": "/src/client/js/index.jsx.js",
+    "js": "/src/client/js/index.js",
     "elm": "/src/client/elm/*.elm"
   },
   "dist": {
     "css": "/dist/css/",
     "js": "/dist/js/",
-    "fonts": "/dist/fonts/"
-  }
+    "fonts": "/dist/fonts/",
+    "elmJs": "/src/client/elm/Native/"
+  },
+  "bundleName": "Main.js"
 }

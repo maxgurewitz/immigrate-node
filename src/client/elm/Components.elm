@@ -37,7 +37,7 @@ homePage address model = pageLayout address model
 
 immigrateInput : String -> Html
 immigrateInput name = 
-  div [ class "form-group " ] 
+  div [ class "form-group" ] 
       [ label [ attribute "for" name 
               , class "col-xs-offset-1"
               ] [ text name ]
@@ -56,12 +56,15 @@ brk : Html
 brk = br [] []
 
 aboutPage : Component
-aboutPage address model = pageLayout address model 
-  [ text ("At " ++ companyName ++ " we're all about helping you build a better life.")
-    , brk
-    , brk
-    , text "If you have had trouble with expensive immigration lawyers and 
-    confusing governmental bureaucracies give us a try.  We will make naturalization easy!"
+aboutPage address model = pageLayout address model
+  [ div [ class "col-xs-offset-1" ]
+        [ text ("At " ++ companyName ++ " we're all about helping you build a better life.")
+          , brk
+          , brk
+          , text "If you have had trouble with expensive immigration 
+          lawyers and confusing governmental bureaucracies give us a try.  
+          We will make naturalization easy!"
+        ]
   ]
 
 notFoundPage : Component
@@ -84,7 +87,7 @@ navbar address model =
                              , span [ class "icon-bar" ] []
                              , span [ class "icon-bar" ] []
                              ]  
-                  , a [ class "navbar-brand", href "#" ] [ text "Naturalize" ]
+                  , a [ class "navbar-brand", href "#" ] [ text companyName ]
                   ]
             , div [ class "collapse navbar-collapse"
                   , attribute "aria-expanded" "false" 
@@ -97,9 +100,9 @@ navbar address model =
 navbarLinks : Component
 navbarLinks address model =
   let pathsAndNames = [ ("/", "Home")
-                     , ("/immigrate", "Immigrate")
-                     , ("/about", "About")
-                     ]
+                      , ("/immigrate", "Immigrate")
+                      , ("/about", "About")
+                      ]
       pathToLink = \(path, name) ->
         li [ if path == model.path then class "active" else class "" ] 
         [ a [ onClick address (PathChange path) ] [ text name ] ]
