@@ -10,3 +10,6 @@ type Action
   = NoOp
   | Update
   | PathChange String
+  | ProfileFormAction
+  | UpdateFirstName String
+  | UpdateLastName String

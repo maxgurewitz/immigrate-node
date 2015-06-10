@@ -3,7 +3,7 @@ module Components where
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Signal exposing (Address)
+import Signal exposing (Address, message)
 import Actions exposing (..)
 import Model exposing (Model)
 import Constants exposing (..)
@@ -49,8 +49,9 @@ homePage address model = pageLayout address model
 -- send : Address a -> a -> Task x ()
 -- message : Address a -> a -> Message
 -- fromElement : Element -> Html
-immigrateInput : String -> Html
-immigrateInput name = 
+-- on : String -> Json.Decoder a -> (a -> Signal.Message) -> Attribute
+immigrateInput : Address Action -> String -> Action -> Html
+immigrateInput address name updateAction = 
   div 
     [ class "form-group" ] 
     [ label 
@@ -60,14 +61,17 @@ immigrateInput name =
     , input 
         [ class "immigration-input col-xs-10 col-xs-offset-1" 
         , id name
+        , on "input" targetValue (\text -> message address (updateAction text))
         ] []
     ]
 
 immigratePage : Component
-immigratePage address model = pageLayout address model 
-  [ immigrateInput "Name"
-  , immigrateInput "Age"
-  ]
+immigratePage address model = 
+  let inputWithAddress = immigrateInput address
+  in  (pageLayout address model)
+        [ inputWithAddress "First Name" UpdateFirstName
+        , inputWithAddress "Last Name" UpdateLastName
+        ]
 
 brk : Html
 brk = br [] []
@@ -119,8 +123,7 @@ navbar address model =
             , attribute "aria-expanded" "false" 
             , id "js-navbar-collapse"
             , attribute "role" "presentation"
-            ] 
-            [ navbarLinks address model ]
+            ] [ navbarLinks address model ]
         ]
     ]
 
