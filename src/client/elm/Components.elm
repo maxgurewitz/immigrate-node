@@ -7,8 +7,9 @@ import Signal exposing (Address, message)
 import Actions exposing (..)
 import Model exposing (Model)
 import Constants exposing (..)
-import Graphics.Input.Field exposing (field, defaultStyle)
--- import Graphics.Input exposing (button)
+import Dict
+import Maybe
+import String
 
 type alias Layout = List(Html) -> Html
 
@@ -44,35 +45,34 @@ homePage address model = pageLayout address model
       ]
   ]
 
--- button : Signal.Message -> String -> Element
--- field : Style -> (Content -> Signal.Message) -> String -> Content -> Element
--- send : Address a -> a -> Task x ()
--- message : Address a -> a -> Message
--- fromElement : Element -> Html
--- on : String -> Json.Decoder a -> (a -> Signal.Message) -> Attribute
-immigrateInput : Address Action -> String -> Html
-immigrateInput address name = 
+profileFormInput : Address Action -> Model -> String -> String -> Html
+profileFormInput address model labelName name = 
   let updateField = 
         (\text -> message address (ProfileFormChange name text))
+      currentValue = Dict.get name model.profileForm |> Maybe.withDefault ""
   in  div 
         [ class "form-group" ] 
           [ label 
               [ attribute "for" name 
               , class "col-xs-offset-1"
-              ] [ text name ]
+              ] [ text labelName ]
           , input 
               [ class "immigration-input col-xs-10 col-xs-offset-1" 
               , id name
               , on "input" targetValue updateField
-              ] []
+              , value currentValue
+              ] 
+              [] 
           ]
 
 immigratePage : Component
 immigratePage address model = 
-  let inp = immigrateInput address
+  let inp = profileFormInput address model
   in  pageLayout address model
-        [ inp "First Name"
-        , inp "Last Name"
+        [ inp "First Name" "firstName"
+        , inp "Last Name" "lastName"
+        , inp "Age" "age"
+        , inp "Country of Origin" "countryOfOrigin"
         ]
 
 brk : Html
