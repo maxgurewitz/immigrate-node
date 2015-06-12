@@ -76,7 +76,7 @@ gulp.task('start', function () {
   nodemon({
     script: __dirname + '/scripts/server.js',
     ext: 'js ejs jsx',
-    watch: __dirname + 'src/app/',
+    watch: __dirname + '/src/app/',
     env: { 'NODE_ENV': 'development' }
   });
 });
