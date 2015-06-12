@@ -30,6 +30,7 @@
     "react": "^0.13.3",
     "react-router": "^0.13.3",
     "reflux": "^0.2.7",
+    "run-sequence": "^1.1.0",
     "vinyl-source-stream": "^1.1.0",
     "webpack": "^1.9.5",
     "webpack-dev-server": "^1.8.2"
