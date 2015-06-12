@@ -1,4 +1,5 @@
 module Model where
+import Dict exposing (Dict, fromList)
 
 import Native.Main
 
@@ -8,7 +9,7 @@ initialPath = Native.Main.initialPath
 type alias Model =
   { field : String
   , path : String
-  , profileForm : ProfileForm
+  , profileForm : Dict String String
   }
 
 initialModel : Model
@@ -16,12 +17,8 @@ initialModel =
   { field = "foo"
   , path = initialPath
   , profileForm = 
-      { firstName = Nothing
-      , lastName = Nothing
-      }
-  }
-
-type alias ProfileForm =
-  { firstName : Maybe(String)
-  , lastName : Maybe(String)
+      fromList
+        [ ("firstName", "")
+        , ("lastName", "")
+        ]
   }

@@ -50,27 +50,29 @@ homePage address model = pageLayout address model
 -- message : Address a -> a -> Message
 -- fromElement : Element -> Html
 -- on : String -> Json.Decoder a -> (a -> Signal.Message) -> Attribute
-immigrateInput : Address Action -> String -> Action -> Html
-immigrateInput address name updateAction = 
-  div 
-    [ class "form-group" ] 
-    [ label 
-        [ attribute "for" name 
-        , class "col-xs-offset-1"
-        ] [ text name ]
-    , input 
-        [ class "immigration-input col-xs-10 col-xs-offset-1" 
-        , id name
-        , on "input" targetValue (\text -> message address (updateAction text))
-        ] []
-    ]
+immigrateInput : Address Action -> String -> Html
+immigrateInput address name = 
+  let updateField = 
+        (\text -> message address (ProfileFormChange name text))
+  in  div 
+        [ class "form-group" ] 
+          [ label 
+              [ attribute "for" name 
+              , class "col-xs-offset-1"
+              ] [ text name ]
+          , input 
+              [ class "immigration-input col-xs-10 col-xs-offset-1" 
+              , id name
+              , on "input" targetValue updateField
+              ] []
+          ]
 
 immigratePage : Component
 immigratePage address model = 
-  let inputWithAddress = immigrateInput address
-  in  (pageLayout address model)
-        [ inputWithAddress "First Name" UpdateFirstName
-        , inputWithAddress "Last Name" UpdateLastName
+  let inp = immigrateInput address
+  in  pageLayout address model
+        [ inp "First Name"
+        , inp "Last Name"
         ]
 
 brk : Html
