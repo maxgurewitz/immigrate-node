@@ -17,11 +17,11 @@ baseLayout : Layout
 baseLayout content =
   div [ class "app" ] content
 
-pageLayout : Address Action -> Model -> Layout
-pageLayout address model content = 
+pageLayout : Model -> Layout
+pageLayout model content = 
   div 
     [ class "page-container" ] 
-    [ navbar address model
+    [ navbar model
     , div 
         [ class "row" ] 
         [ div 
@@ -33,22 +33,22 @@ pageLayout address model content =
         ]
     ]
 
-type alias Component = Address Action -> Model -> Html
+type alias Component = Model -> Html
 
 homePage : Component
-homePage address model = pageLayout address model 
+homePage model = pageLayout model 
   [ div 
       [ class "home" ] 
       [ text model.field
       , text "bar"
-      , button [ onClick address Update ] [ text "button" ]
+      , button [ onClick actions.address Update ] [ text "button" ]
       ]
   ]
 
-profileFormInput : Address Action -> Model -> String -> String -> Html
-profileFormInput address model labelName name = 
+profileFormInput : Model -> String -> String -> Html
+profileFormInput model labelName name = 
   let updateField = 
-        (\text -> message address (ProfileFormChange name text))
+        (\text -> message actions.address (ProfileFormChange name text))
       currentValue = Dict.get name model.profileForm |> Maybe.withDefault ""
   in  div 
         [ class "form-group" ] 
@@ -66,20 +66,26 @@ profileFormInput address model labelName name =
           ]
 
 immigratePage : Component
-immigratePage address model = 
-  let inp = profileFormInput address model
-  in  pageLayout address model
+immigratePage model = 
+  let inp = profileFormInput model
+  in  pageLayout model
         [ inp "First Name" "firstName"
         , inp "Last Name" "lastName"
         , inp "Age" "age"
         , inp "Country of Origin" "countryOfOrigin"
+        , button 
+            [ onClick actions.address SubmitProfileForm 
+            , class "btn btn-default form-submit"
+            , attribute "type" "submit"
+            ] 
+            [ text "submit" ]
         ]
 
 brk : Html
 brk = br [] []
 
 aboutPage : Component
-aboutPage address model = pageLayout address model
+aboutPage model = pageLayout model
   [ div 
       [ class "col-xs-offset-1" ]
       [ text ("At " ++ companyName ++ " we're all about helping you build a better life.")
@@ -92,11 +98,11 @@ aboutPage address model = pageLayout address model
   ]
 
 notFoundPage : Component
-notFoundPage address model =
+notFoundPage model =
   text "404"
 
 navbar : Component
-navbar address model =
+navbar model =
   nav 
     [ class "navbar navbar-default" ] 
     [ div 
@@ -125,19 +131,19 @@ navbar address model =
             , attribute "aria-expanded" "false" 
             , id "js-navbar-collapse"
             , attribute "role" "presentation"
-            ] [ navbarLinks address model ]
+            ] [ navbarLinks model ]
         ]
     ]
 
 navbarLinks : Component
-navbarLinks address model =
+navbarLinks model =
   let pathsAndNames = [ ("/", "Home")
                       , ("/immigrate", "Immigrate")
                       , ("/about", "About")
                       ]
       pathToLink = \(path, name) ->
         li [ if path == model.path then class "active" else class "" ] 
-        [ a [ onClick address (PathChange path) ] [ text name ] ]
+        [ a [ onClick actions.address (PathChange path) ] [ text name ] ]
       links = List.map pathToLink pathsAndNames
   in 
       ul [ class "nav navbar-nav" ] links

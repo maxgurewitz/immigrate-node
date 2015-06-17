@@ -8,6 +8,8 @@ import Dict
 update : Action -> Model -> Model
 update action model = case action of 
 
+  _ -> model
+
   NoOp -> model
 
   PathChange newPath -> { model | path <- newPath }
@@ -23,3 +25,4 @@ update action model = case action of
         "baz" -> "foo"
     in
        { model | field <- value }
+

@@ -11,3 +11,4 @@ type Action
   | Update
   | PathChange String
   | ProfileFormChange String String
+  | SubmitProfileForm

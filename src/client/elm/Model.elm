@@ -1,7 +1,9 @@
 module Model where
-import Dict
 
+import Dict
 import Native.Main
+import Maybe
+import Task exposing (Task)
 
 initialPath : String
 initialPath = Native.Main.initialPath
