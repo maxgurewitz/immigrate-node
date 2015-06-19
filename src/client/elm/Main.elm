@@ -21,22 +21,16 @@ model =
 
 port setPath : Signal (Task x ())
 port setPath = 
-  Signal.map (\currentModel -> History.setPath currentModel.path) model
+  let setPath = 
+    \currentModel currentPath -> 
+      if currentModel.path == currentPath
+      then (Task.succeed ())
+      else History.setPath currentModel.path
+  in Signal.map2 setPath model History.path
 
 -- i want to listen to an action, execute a task, and then update the model with the result
 -- https://groups.google.com/forum/#!topic/elm-discuss/3ZYgfqPE0Vw
 -- why do i need to pass the address as an in the component ?
-
--- port executeTasks : Signal (Task x ())
--- port executeTasks = 
---   let isCreateTask = 
---         \action -> case action of
---           CreateTask -> True
---           _ -> False
-
---       createTasks = Signal.filter 
---   in Signal.map updateTasks createTasks
-
 
 -- send : Address a -> a -> Task x ()
 -- forwardTo : Address b -> (a -> b) -> Address a
