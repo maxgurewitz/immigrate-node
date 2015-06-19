@@ -4,6 +4,7 @@ import Actions exposing (..)
 import Model exposing (Model)
 import Maybe
 import Dict
+import Task
 
 update : Action -> Model -> Model
 update action model = case action of 
@@ -23,4 +24,3 @@ update action model = case action of
         "baz" -> "foo"
     in
        { model | field <- value }
-

@@ -10,6 +10,7 @@ import Constants exposing (..)
 import Dict
 import Maybe
 import String
+import Tasks
 
 type alias Layout = List(Html) -> Html
 
@@ -137,13 +138,19 @@ navbar model =
 
 navbarLinks : Component
 navbarLinks model =
-  let pathsAndNames = [ ("/", "Home")
-                      , ("/immigrate", "Immigrate")
-                      , ("/about", "About")
-                      ]
+  let pathsAndNames = 
+        [ ("/", "Home")
+        , ("/immigrate", "Immigrate")
+        , ("/about", "About")
+        ]
+
       pathToLink = \(path, name) ->
-        li [ if path == model.path then class "active" else class "" ] 
-        [ a [ onClick actions.address (PathChange path) ] [ text name ] ]
+        li 
+          [ if path == model.path then class "active" else class "" ] 
+          [ a 
+            [ onClick asyncActions.address (Tasks.setPath path) ] [ text name ] 
+          ]
+
       links = List.map pathToLink pathsAndNames
   in 
       ul [ class "nav navbar-nav" ] links
