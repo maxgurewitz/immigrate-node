@@ -1,3 +1,19 @@
+var routes = 
+  [
+    '/', 
+    '/immigrate', 
+    '/about'
+  ]
+  .map(function(path) {
+    return {
+      method: 'GET',
+      path: path,
+      handler: function(request, reply) {
+        reply.view('home');
+      }
+    }
+  });
+
 exports.register = function(server, options, next) {
   server.views({
     engines: {
@@ -8,13 +24,7 @@ exports.register = function(server, options, next) {
       }
     }
   });
-  server.route({
-      method: 'GET',
-      path: '/',
-      handler: function(request, reply) {
-        reply.view('home');
-      }
-  });
+  server.route(routes);
   next();
 };
 

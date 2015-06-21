@@ -2,11 +2,11 @@ var plugins = require('./plugins');
 
 module.exports = [
   {
-    register: plugins.views.index,
+    register: plugins.static.index,
     options: {}
   },
   {
-    register: plugins.static.index,
+    register: plugins.views.index,
     options: {}
-  }
+  },
 ];
