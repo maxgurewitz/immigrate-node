@@ -1,4 +1,42 @@
 var Elm = Elm || { Native: {} };
+Elm.Actions = Elm.Actions || {};
+Elm.Actions.make = function (_elm) {
+   "use strict";
+   _elm.Actions = _elm.Actions || {};
+   if (_elm.Actions.values)
+   return _elm.Actions.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Actions",
+   $Signal = Elm.Signal.make(_elm),
+   $Task = Elm.Task.make(_elm);
+   var asyncActions = $Signal.mailbox($Task.succeed({ctor: "_Tuple0"}));
+   var SubmitProfileForm = {ctor: "SubmitProfileForm"};
+   var ProfileFormChange = F2(function (a,
+   b) {
+      return {ctor: "ProfileFormChange"
+             ,_0: a
+             ,_1: b};
+   });
+   var PathChange = function (a) {
+      return {ctor: "PathChange"
+             ,_0: a};
+   };
+   var Update = {ctor: "Update"};
+   var NoOp = {ctor: "NoOp"};
+   var actions = $Signal.mailbox(NoOp);
+   _elm.Actions.values = {_op: _op
+                         ,actions: actions
+                         ,NoOp: NoOp
+                         ,Update: Update
+                         ,PathChange: PathChange
+                         ,ProfileFormChange: ProfileFormChange
+                         ,SubmitProfileForm: SubmitProfileForm
+                         ,asyncActions: asyncActions};
+   return _elm.Actions.values;
+};
 Elm.Basics = Elm.Basics || {};
 Elm.Basics.make = function (_elm) {
    "use strict";
@@ -1541,23 +1579,6 @@ Elm.Graphics.Element.make = function (_elm) {
                                   ,Element: Element
                                   ,Position: Position};
    return _elm.Graphics.Element.values;
-};
-Elm.Immigration = Elm.Immigration || {};
-Elm.Immigration.make = function (_elm) {
-   "use strict";
-   _elm.Immigration = _elm.Immigration || {};
-   if (_elm.Immigration.values)
-   return _elm.Immigration.values;
-   var _op = {},
-   _N = Elm.Native,
-   _U = _N.Utils.make(_elm),
-   _L = _N.List.make(_elm),
-   $moduleName = "Immigration",
-   $Graphics$Element = Elm.Graphics.Element.make(_elm);
-   var main = $Graphics$Element.show("Hello, World!");
-   _elm.Immigration.values = {_op: _op
-                             ,main: main};
-   return _elm.Immigration.values;
 };
 Elm.List = Elm.List || {};
 Elm.List.make = function (_elm) {
@@ -3908,7 +3929,7 @@ Elm.Native.Port.make = function(localRuntime) {
 				"Regarding the port named '" + name + "' with type:\n\n" +
 				"    " + type.split('\n').join('\n        ') + "\n\n" +
 				"You just sent the value:\n\n" +
-				"    " + JSON.stringify(arg.value) + "\n\n" +
+				"    " + JSON.stringify(value) + "\n\n" +
 				"but it cannot be converted to the necessary type.\n" +
 				e.message
 			);
@@ -4742,9 +4763,7 @@ Elm.Native.Show.make = function(localRuntime) {
 		}
 		if (type === 'object' && 'notify' in v && 'id' in v)
 		{
-			return 'initialValue' in v
-				? '<Signal>'
-				: '<Stream>';
+			return '<Signal>';
 		}
 		return "<internal structure>";
 	};
