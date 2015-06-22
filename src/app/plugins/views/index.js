@@ -1,5 +1,4 @@
-var routes = 
-  [
+var routes = [
     '/', 
     '/immigrate', 
     '/about'

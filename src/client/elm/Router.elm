@@ -11,7 +11,9 @@ buildRouter routes defaultPage path = case routes of
                | otherwise -> buildRouter tl defaultPage path
 
 router : String -> Component
-router = buildRouter [ ("/", homePage)
-                     , ("/about", aboutPage) 
-                     , ("/immigrate", immigratePage) 
-                     ] notFoundPage
+router = 
+  buildRouter 
+    [ ("/", homePage)
+    , ("/about", aboutPage) 
+    , ("/immigrate", immigratePage) 
+    ] notFoundPage

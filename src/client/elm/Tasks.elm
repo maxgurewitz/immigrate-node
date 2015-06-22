@@ -8,5 +8,5 @@ import Actions exposing (..)
 setPath : String -> Task x ()
 setPath path =
   History.setPath path
-  `andThen` \resultingPath ->
+  `andThen` \_ ->
     send actions.address (PathChange path)
