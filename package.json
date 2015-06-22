@@ -36,12 +36,13 @@
     "webpack-dev-server": "^1.8.2"
   },
   "dependencies": {
-    "bootstrap": "^3.3.4",
     "bluebird": "^2.9.25",
     "body-parser": "^1.12.3",
+    "bootstrap": "^3.3.4",
     "ejs": "^2.3.1",
     "express": "~4.12.3",
     "gulp": "^3.8.11",
+    "hapi": "^8.6.1",
     "lodash": "^3.7.0",
     "morgan": "^1.5.2"
   },
