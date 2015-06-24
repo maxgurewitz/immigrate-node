@@ -72,7 +72,9 @@ gulp.task('watch', function () {
   gulp.watch(__dirname + settings.src.elm, ['elm']);
 });
 
-gulp.task('start', function () {
+gulp.task('startPg', shell.task(['postgres -D /usr/local/var/postgres']));
+
+gulp.task('startApp', function () {
   nodemon({
     script: __dirname + '/scripts/server.js',
     ext: 'js ejs jsx',
@@ -81,4 +83,6 @@ gulp.task('start', function () {
   });
 });
 
-gulp.task('default', ['start', 'less', 'elm', 'clientJS', 'watch']);
+gulp.task('start', ['startPg', 'startApp']);
+
+gulp.task('default', ['startApp', 'less', 'elm', 'clientJS', 'watch']);
