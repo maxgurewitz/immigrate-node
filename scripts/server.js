@@ -8,9 +8,7 @@ var server = new Hapi.Server();
 server.connection({ port: process.env.PORT || 3000 });
 
 server.register(registered, function(err) {
-    if (err) {
-        console.error('Failed to load a plugin:', err);
-    }
+  if (err) { console.error('Failed to load a plugin:', err); }
 });
 
 server.start(function(err) {

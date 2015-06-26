@@ -6,8 +6,6 @@ import Actions exposing (..)
 import Model exposing (..)
 import Router exposing (router)
 import Update exposing (update)
-import History
-import List exposing (head)
 import Task exposing (Task)
 import Components exposing (baseLayout)
 

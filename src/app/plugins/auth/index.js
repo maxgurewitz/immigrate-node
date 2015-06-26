@@ -1,6 +1,6 @@
-exports.register = function(server, options, next) {
-  server.register(require('hapi-auth-cookie'))
+var authCookie = require('hapi-auth-cookie');
 
+exports.register = function(server, options, next) {
   server.after(function() {
     server.auth.strategy('session', 'cookie', {
       password: 'immigrate-password',
@@ -9,7 +9,7 @@ exports.register = function(server, options, next) {
       isSecure: false
     });
   });
-  next();
+  authCookie.register(server, options, next);
 };
 
 exports.register.attributes = {
