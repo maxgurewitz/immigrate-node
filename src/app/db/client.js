@@ -1,6 +1,6 @@
 var Sequelize = require('sequelize');
 
-var sequelize = new Sequelize('immigrate', 'max', null, {
+module.exports = new Sequelize('immigrate_dev', 'root', null, {
   host: 'localhost',
   dialect: 'postgres',
 });

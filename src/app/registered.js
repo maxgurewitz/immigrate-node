@@ -1,6 +1,7 @@
+GLOBAL.__BASE = __dirname;
+
 var plugins = require('./plugins');
 
-// pass db client as option
 module.exports = [
   {
     register: plugins.static.index,
