@@ -1,8 +1,18 @@
 #!/usr/bin/env node
-var app = require('../src/app');
+var Hapi = require('hapi');
 
-var server = app.listen(process.env.PORT || 3000, function(err) {
-  if (err) { return console.log("Failed to start server: " +  err) }
+var registered = require('../src/app/registered');
 
-  console.log("Server Started.")
+var server = new Hapi.Server();
+
+server.connection({ port: process.env.PORT || 3000 });
+
+server.register(registered, function(err) {
+  if (err) { console.error('Failed to load a plugin:', err); }
+});
+
+server.start(function(err) {
+  if (err) { return console.log("Failed to start server: " +  err); }
+
+  console.log("Server Started.");
 });
