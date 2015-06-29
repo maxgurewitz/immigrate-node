@@ -8,7 +8,7 @@ var rename = require('gulp-rename');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var runSequence = require('run-sequence');
-var settings = require('./settings');
+var settings = require('./gulpSettings');
 
 function logError (err) {
   gutil.log(err.message);
