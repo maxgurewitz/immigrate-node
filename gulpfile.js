@@ -85,4 +85,4 @@ gulp.task('startApp', function () {
 
 gulp.task('start', ['startPg', 'startApp']);
 
-gulp.task('default', ['startApp', 'less', 'elm', 'clientJS', 'watch']);
+gulp.task('default', ['start', 'less', 'elm', 'clientJS', 'watch']);

@@ -1,12 +1,24 @@
 var User = require(__BASE + '/db/models/user');
+var validationError = require('sequelize').prototype.ValidationError;
 
 exports.register = function(server, options, next) {
   server.route([
     {
       method: 'GET',
-      path: '/users',
+      path: '/users/{id}',
       handler: function(request, reply) {
-        reply({ foo: 'bar' });
+        User
+          .findById(request.params.id)
+          .then(function(res) {
+            if (res === null) {
+              reply({ statusCode: 404 });
+            } else {
+              reply({ user: res, statusCode: 200 });
+            }
+          })
+          .catch(function(err) {
+            reply({ err: err.message, statusCode: 500 });
+          });
       }
     },
     {
@@ -16,10 +28,13 @@ exports.register = function(server, options, next) {
         User
           .create(request.payload)
           .then(function(res) {
-            reply({ user: res }).status(200);
+            reply({ user: res, statusCode: 200 });
+          })
+          .catch(validationError, function(err) {
+            reply({ err: err.message, statusCode: 400 });
           })
           .catch(function(err) {
-            reply({ err: err.message }).status(500);
+            reply({ err: err.message, statusCode: 500 });
           });
       }
     }
