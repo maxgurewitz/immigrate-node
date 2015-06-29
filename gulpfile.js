@@ -8,7 +8,7 @@ var rename = require('gulp-rename');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var runSequence = require('run-sequence');
-var settings = require('./settings');
+var settings = require('./gulpSettings');
 
 function logError (err) {
   gutil.log(err.message);
@@ -72,7 +72,9 @@ gulp.task('watch', function () {
   gulp.watch(__dirname + settings.src.elm, ['elm']);
 });
 
-gulp.task('start', function () {
+gulp.task('startPg', shell.task(['postgres -D /usr/local/var/postgres']));
+
+gulp.task('startApp', function () {
   nodemon({
     script: 'scripts/server.js',
     watch: __dirname + '/src/app/',
@@ -82,5 +84,7 @@ gulp.task('start', function () {
     env: { 'NODE_ENV': 'development' }
   });
 });
+
+gulp.task('start', ['startPg', 'startApp']);
 
 gulp.task('default', ['start', 'less', 'elm', 'clientJS', 'watch']);

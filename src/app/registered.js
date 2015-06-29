@@ -1,3 +1,5 @@
+GLOBAL.__BASE = __dirname;
+
 var plugins = require('./plugins');
 
 module.exports = [
@@ -15,6 +17,10 @@ module.exports = [
   },
   {
     register: plugins.views.index,
+    options: {}
+  },
+  {
+    register: plugins.users.index,
     options: {}
   },
 ];
