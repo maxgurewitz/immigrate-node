@@ -12,10 +12,6 @@ module.exports = [
     options: {}
   },
   {
-    register: plugins.users.index,
-    options: {}
-  },
-  {
     register: plugins.views.index,
     options: {}
   },
