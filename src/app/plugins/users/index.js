@@ -1,4 +1,4 @@
-var User = require(__BASE + '/db/models/user');
+var User = require(__BASE + '/models/user');
 var validationError = require('sequelize').prototype.ValidationError;
 
 exports.register = function(server, options, next) {

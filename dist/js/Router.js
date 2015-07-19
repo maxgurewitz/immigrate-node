@@ -13547,10 +13547,12 @@ Elm.Tasks.make = function (_elm) {
    var setPath = function (path) {
       return A2($Task.andThen,
       $History.setPath(path),
-      function (resultingPath) {
-         return A2($Signal.send,
-         $Actions.actions.address,
-         $Actions.PathChange(path));
+      function (_v0) {
+         return function () {
+            return A2($Signal.send,
+            $Actions.actions.address,
+            $Actions.PathChange(path));
+         }();
       });
    };
    _elm.Tasks.values = {_op: _op

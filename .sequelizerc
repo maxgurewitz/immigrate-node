@@ -1,7 +1,8 @@
-var dbDir = 'src/app/db/';
+var dbDir = 'src/db';
+var apDir = 'src/app';
 
 module.exports = {
-  'config': dbDir + 'config.json',
-  'migrations-path': dbDir + 'migrations',
-  'models-path': dbDir + 'models'
-}
+  'config': dbDir + '/config.json',
+  'migrations-path': dbDir + '/migrations',
+  'models-path': apDir + '/models'
+};
